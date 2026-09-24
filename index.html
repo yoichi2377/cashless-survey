@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#E8ECF4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#070A14" media="(prefers-color-scheme: dark)">
+<title>Should campus go cashless? Student and vendor survey</title>
+<meta name="description" content="A 3-minute survey on digital payments for the campus vendors.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='18' y='4' width='28' height='56' rx='8' fill='%235B4BFF'/%3E%3Crect x='23' y='20' width='5' height='5' fill='white'/%3E%3Crect x='36' y='20' width='5' height='5' fill='white'/%3E%3Crect x='23' y='33' width='5' height='5' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!--
+  SETUP (takes about 10 minutes)
+  1. Make a Google Sheet, open Extensions > Apps Script, paste in google-apps-script.gs and save.
+  2. Deploy > New deployment > Web app. Execute as: Me. Who has access: Anyone. Copy the web app URL.
+  3. Paste that URL into RESPONSES_URL near the top of the <script> at the bottom of this file.
+  4. Host this file (GitHub Pages or Netlify) and share its link / QR code.
+  Until step 3 is done the page runs in preview mode and does not save answers.
+-->
+<style>
+:root{
+  --bg:#E8ECF4;
+  --ink:#0D1222;
+  --ink-2:rgba(13,18,34,.66);
+  --ink-3:rgba(13,18,34,.46);
+  --glass-hi:rgba(255,255,255,.58);
+  --glass-lo:rgba(255,255,255,.24);
+  --glass-solid:rgba(246,248,252,.94);
+  --rim:rgba(255,255,255,.95);
+  --edge:rgba(255,255,255,.6);
+  --sheen:rgba(255,255,255,.6);
+  --inner-glow:rgba(255,255,255,.45);
+  --shade:rgba(38,50,92,.22);
+  --shade-soft:rgba(38,50,92,.10);
+  --pill:rgba(255,255,255,.52);
+  --pill-hover:rgba(255,255,255,.82);
+  --track:rgba(13,18,34,.09);
+  --accent:#4F46FF;
+  --accent-2:#1F6FEB;
+  --accent-glow:rgba(79,70,255,.38);
+  --focus:#1F6FEB;
+  --danger:#C81E4A;
+  --tangerine:#FF8A3D;
+  --pink:#FF4F9A;
+  --violet:#6B5BFF;
+  --teal:#1FC7B6;
+  --sky:#3A9BFF;
+  --spring:cubic-bezier(.34,1.35,.64,1);
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+  color-scheme:light dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@supports (transition-timing-function: linear(0, 1)){
+  :root{--spring:linear(0, 0.0686, 0.228, 0.4224, 0.6133, 0.7779, 0.9058, 0.9952, 1.05, 1.0769, 1.0835, 1.0769, 1.0632, 1.0468, 1.031, 1.0175, 1.0071, 0.9999, 0.9955, 0.9935, 0.993, 0.9937, 0.9948, 0.9962, 0.9975, 0.9986, 1);}
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#070A14; --ink:#F2F4FA; --ink-2:rgba(242,244,250,.7); --ink-3:rgba(242,244,250,.48);
+    --glass-hi:rgba(255,255,255,.15); --glass-lo:rgba(255,255,255,.05); --glass-solid:rgba(22,26,42,.94);
+    --rim:rgba(255,255,255,.38); --edge:rgba(255,255,255,.14); --sheen:rgba(255,255,255,.2); --inner-glow:rgba(255,255,255,.08);
+    --shade:rgba(0,0,0,.55); --shade-soft:rgba(0,0,0,.3);
+    --pill:rgba(255,255,255,.08); --pill-hover:rgba(255,255,255,.14); --track:rgba(255,255,255,.12);
+    --accent:#5E54FF; --accent-2:#2F74E8; --accent-glow:rgba(94,84,255,.5); --focus:#7DB4FF; --danger:#FF7A95;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#070A14; --ink:#F2F4FA; --ink-2:rgba(242,244,250,.7); --ink-3:rgba(242,244,250,.48);
+  --glass-hi:rgba(255,255,255,.15); --glass-lo:rgba(255,255,255,.05); --glass-solid:rgba(22,26,42,.94);
+  --rim:rgba(255,255,255,.38); --edge:rgba(255,255,255,.14); --sheen:rgba(255,255,255,.2); --inner-glow:rgba(255,255,255,.08);
+  --shade:rgba(0,0,0,.55); --shade-soft:rgba(0,0,0,.3);
+  --pill:rgba(255,255,255,.08); --pill-hover:rgba(255,255,255,.14); --track:rgba(255,255,255,.12);
+  --accent:#5E54FF; --accent-2:#2F74E8; --accent-glow:rgba(94,84,255,.5); --focus:#7DB4FF; --danger:#FF7A95;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+[hidden]{display:none !important;}
+html{height:100%; background:var(--bg); -webkit-text-size-adjust:100%; scroll-padding-top:env(safe-area-inset-top,0px);}
+body{
+  margin:0; min-height:100%; background:var(--bg); color:var(--ink);
+  font-family:-apple-system, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", system-ui, "Segoe UI", Roboto, sans-serif;
+  font-size:1rem; line-height:1.5;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
+}
+button{font:inherit; color:inherit;}
+:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
+[tabindex="-1"]:focus{outline:none;}
+
+/* The world behind the glass: coins drifting into cards and phones */
+.world{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;}
+.world > span{position:absolute; animation:float-in 1.5s var(--ease-out) both; animation-delay:var(--d,0s); transform:rotate(var(--rot,0deg));}
+@keyframes float-in{
+  from{opacity:0; transform:translateY(46px) scale(.88) rotate(var(--rot,0deg));}
+  to{opacity:1; transform:rotate(var(--rot,0deg));}
+}
+.coin{
+  border-radius:50%; aspect-ratio:1;
+  background:
+    radial-gradient(circle, transparent 0 57%, rgba(255,255,255,.5) 58% 61%, transparent 62%),
+    radial-gradient(circle at 32% 26%, var(--hi), var(--base) 56%, var(--lo) 100%);
+  box-shadow:inset -14px -18px 44px rgba(0,0,0,.12), inset 12px 14px 32px rgba(255,255,255,.35);
+}
+.card{
+  border-radius:9% / 14%; aspect-ratio:1.586;
+  background:linear-gradient(135deg, var(--hi), var(--base) 58%, var(--lo));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.3), inset 0 18px 40px rgba(255,255,255,.18);
+}
+.card::before{
+  content:""; position:absolute; left:9%; top:36%; width:13%; aspect-ratio:1.3; border-radius:18%;
+  background:linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,255,255,.25));
+}
+.c1{--hi:#FFC08F; --base:var(--tangerine); --lo:#E4541C; width:clamp(230px,64vw,460px); top:-7vh; left:-17vw; --d:.05s;}
+.c2{--hi:#8AF0E3; --base:var(--teal); --lo:#0B8F84; width:clamp(190px,48vw,360px); bottom:-9vh; left:-12vw; --d:.2s;}
+.c3{--hi:#FFA3C8; --base:var(--pink); --lo:#D62C74; width:clamp(90px,22vw,160px); top:13vh; right:6vw; --d:.3s;}
+.k1{--hi:#A597FF; --base:var(--violet); --lo:#3F2FD6; width:clamp(250px,72vw,540px); top:34vh; right:-30vw; --rot:-16deg; --d:.12s;}
+.k2{--hi:#9ACBFF; --base:var(--sky); --lo:#1C6FD6; width:clamp(140px,38vw,270px); bottom:5vh; right:-7vw; --rot:12deg; --d:.26s;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .world{opacity:.82;} }
+:root[data-theme="dark"] .world{opacity:.82;}
+
+/* Layout */
+.app{
+  position:relative; z-index:1;
+  width:min(560px, 100%); margin:0 auto;
+  padding:clamp(16px, 8vh, 88px) max(16px, env(safe-area-inset-right,0px)) 40px max(16px, env(safe-area-inset-left,0px));
+  display:flex; flex-direction:column; gap:12px;
+}
+
+/* Liquid glass material */
+.glass{
+  position:relative; isolation:isolate; border:0;
+  background:linear-gradient(160deg, var(--glass-hi), var(--glass-lo));
+  -webkit-backdrop-filter:blur(20px) saturate(190%);
+  backdrop-filter:blur(20px) saturate(190%);
+  box-shadow:
+    inset 0 1px 0 0 var(--rim),
+    inset 0 -1px 1px 0 rgba(255,255,255,.12),
+    inset 0 0 26px -8px var(--inner-glow),
+    0 1px 2px var(--shade-soft),
+    0 22px 44px -18px var(--shade);
+}
+.glass::before{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:-1;
+  background:radial-gradient(130% 85% at var(--mx,16%) var(--my,-12%), var(--sheen), transparent 46%);
+}
+.glass::after{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; padding:1px;
+  background:linear-gradient(150deg, rgba(255,255,255,.95), rgba(255,255,255,.14) 32%, rgba(255,255,255,0) 55%, rgba(255,255,255,.5));
+  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.9;
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+  .glass{background:var(--glass-solid);}
+}
+
+.sheet{
+  border-radius:34px; overflow:hidden;
+  padding:clamp(24px, 6.5vw, 36px);
+  animation:rise .95s var(--spring) .1s both;
+}
+@keyframes rise{from{opacity:0; transform:translateY(22px) scale(.97);} to{opacity:1; transform:none;}}
+
+/* Top bar */
+.topbar{display:flex; align-items:center; gap:10px;}
+.icon-btn{
+  width:50px; height:50px; flex:none; border-radius:50%;
+  display:grid; place-items:center; cursor:pointer; color:var(--ink);
+  transition:transform .5s var(--spring);
+}
+.icon-btn:active{transform:scale(.9);}
+.icon-btn svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
+.progress{flex:1; height:50px; border-radius:999px; display:flex; align-items:center; gap:14px; padding:0 20px;}
+.track{flex:1; height:8px; border-radius:99px; background:var(--track); overflow:hidden;}
+.fill{
+  height:100%; width:0; border-radius:inherit;
+  background:linear-gradient(90deg, var(--tangerine), var(--pink) 45%, var(--accent));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+  transition:width .75s var(--spring);
+}
+.count{font-size:.875rem; font-weight:600; color:var(--ink-2); font-variant-numeric:tabular-nums; white-space:nowrap;}
+
+/* Welcome */
+.glyph{width:64px; height:64px; margin-bottom:22px;}
+.glyph svg{display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 10px 16px var(--shade));}
+h1{margin:0; font-size:clamp(2.15rem, 8.6vw, 3rem); line-height:1.02; letter-spacing:-.045em; font-weight:800; text-wrap:balance;}
+.lede{margin:14px 0 0; font-size:1.0625rem; line-height:1.5; color:var(--ink-2); max-width:38ch;}
+.ask{margin:30px 0 0; font-size:1.0625rem; font-weight:700; letter-spacing:-.015em;}
+.roles{display:grid; gap:12px; margin-top:12px;}
+.role{
+  appearance:none; border:0; cursor:pointer; text-align:left; position:relative; overflow:hidden; isolation:isolate;
+  display:flex; align-items:center; gap:16px; padding:16px;
+  border-radius:26px; background:var(--pill);
+  box-shadow:inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--edge), 0 1px 2px var(--shade-soft), 0 12px 24px -16px var(--shade);
+  transition:transform .5s var(--spring), background-color .25s;
+}
+.role::before{
+  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+  background:radial-gradient(120% 120% at var(--mx,20%) var(--my,0%), var(--sheen), transparent 50%);
+  opacity:.8;
+}
+@media (hover:hover){ .role:hover{background:var(--pill-hover);} }
+.role:active{transform:scale(.975);}
+.badge{
+  width:54px; height:54px; flex:none; border-radius:17px; display:grid; place-items:center; color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), inset 0 -5px 12px rgba(0,0,0,.14), 0 10px 20px -10px var(--glow);
+}
+.badge svg{width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round;}
+.badge.student{background:linear-gradient(145deg, #9C8DFF, var(--violet) 55%, #4232DA); --glow:rgba(107,91,255,.6);}
+.badge.vendor{background:linear-gradient(145deg, #FFB47A, var(--tangerine) 55%, #E3571D); --glow:rgba(255,138,61,.6);}
+.role-text{flex:1; min-width:0;}
+.role-title{display:block; font-size:1.125rem; font-weight:700; letter-spacing:-.02em; line-height:1.25;}
+.role-sub{display:block; margin-top:2px; font-size:.9375rem; color:var(--ink-2); line-height:1.35;}
+.chev{width:20px; height:20px; flex:none; color:var(--ink-3);}
+.chev svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;}
+.fine{margin:20px 2px 0; font-size:.8125rem; line-height:1.45; color:var(--ink-3);}
+
+/* Questions */
+h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-spacing:-.032em; font-weight:700; text-wrap:balance;}
+.hint{margin:10px 0 0; font-size:.9375rem; color:var(--ink-2);}
+.opts{display:grid; gap:10px; margin-top:22px;}
+.opt{
+  appearance:none; border:0; cursor:pointer; text-align:left; position:relative;
+  display:flex; align-items:center; gap:14px;
+  min-height:56px; padding:14px 18px; border-radius:20px;
+  background:var(--pill); color:var(--ink);
+  box-shadow:inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--edge), 0 1px 2px var(--shade-soft);
+  font-size:1rem; font-weight:600; letter-spacing:-.01em; line-height:1.3;
+  transition:background-color .25s, color .2s, box-shadow .3s, transform .5s var(--spring);
+}
+@media (hover:hover){ .opt:hover{background:var(--pill-hover);} }
+.opt:active{transform:scale(.97);}
+.opt[aria-checked="true"]{
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  color:#fff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 0 0 1px rgba(255,255,255,.16), inset 0 -6px 14px rgba(0,0,0,.1), 0 12px 26px -12px var(--accent-glow);
+}
+.mark{
+  width:24px; height:24px; flex:none; border-radius:50%; display:grid; place-items:center;
+  box-shadow:inset 0 0 0 1.75px var(--ink-3);
+  transition:background-color .25s, box-shadow .25s, transform .5s var(--spring);
+}
+.opt[role="checkbox"] .mark{border-radius:8px;}
+.opt[aria-checked="true"] .mark{background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.18);}
+.mark svg{width:14px; height:14px; fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:20; stroke-dashoffset:20; transition:stroke-dashoffset .35s var(--ease-out) .05s;}
+.opt[aria-checked="true"] .mark svg{stroke-dashoffset:0;}
+.opt-label{flex:1; min-width:0;}
+
+.scale{display:grid; grid-template-columns:repeat(5, 1fr); gap:clamp(8px, 2.6vw, 14px); margin-top:26px;}
+.scale .opt{justify-content:center; padding:0; min-height:0; aspect-ratio:1; border-radius:50%; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums;}
+.scale-labels{display:flex; justify-content:space-between; gap:16px; margin-top:12px; font-size:.8125rem; font-weight:600; color:var(--ink-2);}
+
+.field{
+  display:block; width:100%; min-height:136px; margin-top:22px; resize:vertical;
+  padding:16px 18px; border:0; border-radius:22px;
+  font:inherit; font-size:1rem; line-height:1.5; color:var(--ink);
+  background:var(--pill);
+  box-shadow:inset 0 2px 8px var(--shade-soft), inset 0 0 0 1px var(--edge);
+  transition:box-shadow .25s;
+}
+.field::placeholder{color:var(--ink-3);}
+.field:focus{outline:none; box-shadow:inset 0 2px 8px var(--shade-soft), inset 0 0 0 1px var(--edge), 0 0 0 3px color-mix(in srgb, var(--focus) 50%, transparent);}
+
+.btn{
+  appearance:none; border:0; cursor:pointer;
+  min-height:56px; padding:0 26px; border-radius:999px;
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  font-size:1.0625rem; font-weight:700; letter-spacing:-.01em;
+  transition:transform .5s var(--spring), opacity .25s, box-shadow .3s;
+}
+.btn-primary{
+  width:100%; margin-top:22px; color:#fff;
+  background:linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -6px 14px rgba(0,0,0,.12), 0 14px 30px -14px var(--accent-glow);
+}
+.btn-primary:active{transform:scale(.97);}
+.btn-primary:disabled{opacity:.38; cursor:not-allowed; transform:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.4);}
+.btn-primary[aria-busy="true"]{opacity:.85;}
+.btn-link{min-height:48px; padding:0 14px; background:none; color:var(--ink-2); font-size:.9375rem; font-weight:600; text-decoration:underline; text-underline-offset:3px;}
+.spinner{width:18px; height:18px; border-radius:50%; border:2.5px solid rgba(255,255,255,.4); border-top-color:#fff; animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.error{margin:14px 4px 0; color:var(--danger); font-size:.9375rem; font-weight:600; line-height:1.4;}
+
+/* Done */
+.orb{
+  width:84px; height:84px; margin-bottom:24px; border-radius:50%; display:grid; place-items:center;
+  background:linear-gradient(145deg, #5BE8D2, var(--teal) 55%, #0E9C90);
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.65), inset 0 -8px 18px rgba(0,0,0,.14), 0 18px 36px -14px rgba(31,199,182,.65);
+  animation:pop .8s var(--spring) .05s both;
+}
+@keyframes pop{from{opacity:0; transform:scale(.4);} to{opacity:1; transform:none;}}
+.orb svg{width:42px; height:42px; fill:none; stroke:#fff; stroke-width:3.4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:40; stroke-dashoffset:40; animation:draw .55s var(--ease-out) .4s forwards;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.again{display:flex; justify-content:center; margin-top:10px;}
+
+.chip{margin:6px auto 0; max-width:440px; padding:12px 18px; border-radius:20px; font-size:.8125rem; line-height:1.45; color:var(--ink-2); text-align:center;}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important; animation-delay:0s !important; transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<div class="world" aria-hidden="true">
+  <span class="coin c1"></span>
+  <span class="card k1"></span>
+  <span class="coin c3"></span>
+  <span class="coin c2"></span>
+  <span class="card k2"></span>
+</div>
+
+<main class="app">
+  <div class="topbar" id="topbar" hidden>
+    <button class="icon-btn glass" id="back" type="button" aria-label="Previous question" data-shine>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <div class="progress glass" id="progress" role="progressbar" aria-label="Survey progress" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1" data-shine>
+      <div class="track"><div class="fill" id="fill"></div></div>
+      <span class="count" id="count"></span>
+    </div>
+  </div>
+
+  <section class="sheet glass" id="sheet" data-shine aria-live="polite">
+    <div id="stage"></div>
+  </section>
+
+  <p class="chip glass" id="chip" hidden>Preview mode: answers aren't saved yet. Add your Google Sheets link to this page to start collecting responses.</p>
+  <noscript><p class="chip">This survey needs JavaScript. Turn it on in your browser settings, then reload the page.</p></noscript>
+</main>
+
+<script>
+(() => {
+  'use strict';
+
+  // Paste your Google Apps Script web app URL between the quotes to start saving responses.
+  const RESPONSES_URL = '';
+
+  const DONE_KEY = 'campus-cashless-survey-submitted';
+
+  const SURVEYS = {
+    student: [
+      { id: 's_year', col: 'Year of study', type: 'single', title: 'What year are you in?',
+        options: ['First year', 'Second year', 'Third year', 'Fourth year or above', 'Postgraduate'] },
+      { id: 's_freq', col: 'How often buys from vendors', type: 'single', title: 'How often do you buy from the campus vendors?',
+        options: ['Every day', 'A few times a week', 'About once a week', 'Rarely', 'Never'] },
+      { id: 's_spend', col: 'Spend per visit', type: 'single', title: 'How much do you usually spend per visit?',
+        options: ['Under K20', 'K20 to K50', 'K50 to K100', 'Over K100'], showIf: a => a.s_freq !== 'Never' },
+      { id: 's_wait', col: 'Wait at busy times', type: 'single', title: 'How long do you usually wait to be served at busy times?',
+        options: ['Under 5 minutes', '5 to 10 minutes', '10 to 20 minutes', 'Over 20 minutes'], showIf: a => a.s_freq !== 'Never' },
+      { id: 's_change', col: 'Vendor had no change', type: 'single', title: 'How often do the vendors not have change for you?',
+        options: ['Never', 'Sometimes', 'Often', 'Very often'], showIf: a => a.s_freq !== 'Never' },
+      { id: 's_cash', col: 'Carries cash', type: 'single', title: 'How often do you have cash on you?',
+        options: ['Always', 'Most days', 'Sometimes', 'Rarely', 'Never'] },
+      { id: 's_nocash', col: 'Could not buy (no cash)', type: 'single',
+        title: "How often have you wanted to buy from the vendors but couldn't because you had no cash on you?",
+        options: ['Never', 'Once or twice', 'Sometimes', 'Often', 'Very often'] },
+      { id: 's_has', col: 'Has', type: 'multi', title: 'Which of these do you have?',
+        options: ['A smartphone', 'Mobile money', 'A bank account', 'A bank card', 'A banking app', 'None of these'], exclusive: 'None of these' },
+      { id: 's_main', col: 'Main everyday payment', type: 'single', title: 'What do you use most for everyday payments?',
+        options: ['Cash', 'Mobile money', 'Bank card', 'Banking app'] },
+      { id: 's_likely', col: 'Likely to pay digitally (1-5)', type: 'scale',
+        title: 'If the vendors accepted digital payments, how likely are you to pay that way?', low: 'Not likely', high: 'Very likely' },
+      { id: 's_prefer', col: 'Preferred way to pay', type: 'single', title: 'How would you most like to pay the vendors?',
+        options: ['Scan a QR code in an app', 'Send mobile money', 'Tap a bank card', 'Keep paying cash'] },
+      { id: 's_features', col: 'Useful app features', type: 'multi', title: 'Which of these would you use in a campus payment app?',
+        options: ['Scan to pay', 'Order ahead and skip the queue', 'Digital receipts', 'Spending tracker', 'Loyalty rewards or discounts', 'None of these'], exclusive: 'None of these' },
+      { id: 's_worries', col: 'Worries', type: 'multi', title: 'What worries you about paying digitally on campus?',
+        options: ['Network going down', 'Transaction fees', 'Fraud or scams', 'Privacy of my spending', 'Phone battery dying', 'Nothing worries me'], exclusive: 'Nothing worries me' },
+      { id: 's_more', col: 'Other comments', type: 'text', title: "Anything else you'd like to tell us?", placeholder: 'Type your answer' }
+    ],
+    vendor: [
+      { id: 'v_sell', col: 'Sells', type: 'multi', title: 'What do you sell?',
+        options: ['Meals', 'Snacks', 'Drinks', 'Stationery or printing', 'Something else'] },
+      { id: 'v_years', col: 'Years on campus', type: 'single', title: 'How long have you been selling on campus?',
+        options: ['Less than a year', '1 to 3 years', '3 to 5 years', 'More than 5 years'] },
+      { id: 'v_customers', col: 'Customers per day', type: 'single', title: 'About how many customers do you serve on a normal day?',
+        options: ['Fewer than 50', '50 to 100', '100 to 200', 'More than 200'] },
+      { id: 'v_paynow', col: 'How customers pay now', type: 'single', title: 'How do your customers pay today?',
+        options: ['Cash only', 'Mostly cash, some mobile money', 'About half cash, half digital'] },
+      { id: 'v_has', col: 'Has', type: 'multi', title: 'Which of these do you have?',
+        options: ['A smartphone', 'A mobile money account', 'A bank account', 'A merchant (till) code', 'None of these'], exclusive: 'None of these' },
+      { id: 'v_problems', col: 'Problems with cash', type: 'multi', title: 'Which of these problems do you have with cash?',
+        options: ['Running out of change', 'Counting and recording sales', 'Risk of theft or losing cash', 'Fake notes', 'Long queues at busy times', 'Taking cash to the bank', 'None of these'], exclusive: 'None of these' },
+      { id: 'v_lost', col: 'Students leave (no cash)', type: 'single', title: 'How often do students leave without buying because they have no cash?',
+        options: ['Never', 'Sometimes', 'Often', 'Every day'] },
+      { id: 'v_records', col: 'Sales records', type: 'single', title: 'How do you keep track of daily sales?',
+        options: ['Written in a book', 'On my phone', 'I keep it in my head', "I don't keep records"] },
+      { id: 'v_thought', col: 'Considered digital payments', type: 'single', title: 'Have you thought about accepting digital payments?',
+        options: ['I already accept some', "Yes, but I haven't started", "I've never really thought about it", "I don't want to"] },
+      { id: 'v_barriers', col: 'What would stop them', type: 'multi', title: 'What would stop you from accepting digital payments?',
+        options: ['Fees or charges', 'Not knowing how to set it up', 'I need cash to buy stock', 'Network problems', 'Worry about fraud', 'Waiting for payments to confirm', 'Nothing would stop me'], exclusive: 'Nothing would stop me' },
+      { id: 'v_interest', col: 'Interest in campus app (1-5)', type: 'scale',
+        title: 'How interested would you be in an app where students scan your QR code to pay, and you see every payment and your daily total on your phone?',
+        low: 'Not interested', high: 'Very interested' },
+      { id: 'v_pilot', col: 'Would try a 2-week test', type: 'single', title: 'Would you try it for two weeks as a test?',
+        options: ['Yes', 'Maybe', 'No'] },
+      { id: 'v_switch', col: 'What would make them switch', type: 'text', title: 'What would make you switch to digital payments?', placeholder: 'Type your answer' }
+    ]
+  };
+
+  const HINTS = { single: 'Choose one', multi: 'Choose all that apply', scale: 'Tap a number from 1 to 5', text: 'Optional' };
+
+  const ICON = {
+    student: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.7v4.1c0 1.3 2.5 2.9 5.5 2.9s5.5-1.6 5.5-2.9v-4.1"/><path d="M21.5 9.5v5"/></svg>',
+    vendor: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 11v8.5h15V11"/><path d="M3 10.2 5 4.5h14l2 5.7c0 1.4-1.2 2.3-2.6 2.3-1.3 0-2.4-.9-2.4-2.3 0 1.4-1.1 2.3-2.5 2.3h-1c-1.4 0-2.5-.9-2.5-2.3 0 1.4-1.1 2.3-2.4 2.3-1.4 0-2.6-.9-2.6-2.3z"/><path d="M10 19.5v-4.5h4v4.5"/></svg>',
+    chev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
+    check: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>',
+    done: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10.5 20.5l6.5 6.5 12.5-14"/></svg>'
+  };
+
+  // A coin that turns into a phone: the whole project in one small moment.
+  const SPL = 'calcMode="spline" keyTimes="0;1" keySplines="0.2 0.9 0.2 1" begin="0.55s" dur="0.8s" fill="freeze"';
+  const GLYPH = `
+<svg viewBox="0 0 64 64" aria-hidden="true">
+  <defs>
+    <linearGradient id="glyphShine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="48" height="48" rx="24" fill="#FF8A3D">
+    <animate attributeName="x" values="8;18" ${SPL}/><animate attributeName="y" values="8;4" ${SPL}/>
+    <animate attributeName="width" values="48;28" ${SPL}/><animate attributeName="height" values="48;56" ${SPL}/>
+    <animate attributeName="rx" values="24;8" ${SPL}/><animate attributeName="fill" values="#FF8A3D;#5B4BFF" ${SPL}/>
+  </rect>
+  <rect x="8" y="8" width="48" height="48" rx="24" fill="url(#glyphShine)">
+    <animate attributeName="x" values="8;18" ${SPL}/><animate attributeName="y" values="8;4" ${SPL}/>
+    <animate attributeName="width" values="48;28" ${SPL}/><animate attributeName="height" values="48;56" ${SPL}/>
+    <animate attributeName="rx" values="24;8" ${SPL}/>
+  </rect>
+  <g opacity="1">
+    <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
+    <text x="32" y="39.5" text-anchor="middle" font-size="21" font-weight="800" fill="#fff" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif">K</text>
+    <animate attributeName="opacity" values="1;0" begin="0.45s" dur="0.25s" fill="freeze"/>
+  </g>
+  <g opacity="0" fill="#fff">
+    <rect x="29" y="8" width="6" height="1.6" rx=".8" opacity=".7"/>
+    <rect x="23" y="20" width="5" height="5" rx="1"/><rect x="36" y="20" width="5" height="5" rx="1"/><rect x="23" y="33" width="5" height="5" rx="1"/>
+    <rect x="30" y="20" width="2" height="2"/><rect x="30" y="24" width="2" height="2"/><rect x="29.5" y="28.5" width="2" height="2"/>
+    <rect x="33" y="28.5" width="2" height="2"/><rect x="37" y="28.5" width="2" height="2"/><rect x="36" y="33" width="2" height="2"/>
+    <rect x="39" y="33" width="2" height="2"/><rect x="37.5" y="36" width="2" height="2"/><rect x="30" y="33" width="2" height="2"/>
+    <rect x="33" y="36" width="2" height="2"/><rect x="28" y="53" width="8" height="2" rx="1" opacity=".7"/>
+    <animate attributeName="opacity" values="0;1" begin="1.15s" dur="0.35s" fill="freeze"/>
+  </g>
+</svg>`;
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasLinear = window.CSS && CSS.supports && CSS.supports('transition-timing-function', 'linear(0, 1)');
+  const SPRING = hasLinear
+    ? 'linear(0, 0.0686, 0.228, 0.4224, 0.6133, 0.7779, 0.9058, 0.9952, 1.05, 1.0769, 1.0835, 1.0769, 1.0632, 1.0468, 1.031, 1.0175, 1.0071, 0.9999, 0.9955, 0.9935, 0.993, 0.9937, 0.9948, 0.9962, 0.9975, 0.9986, 1)'
+    : 'cubic-bezier(.34,1.35,.64,1)';
+  const SPRING_SOFT = hasLinear
+    ? 'linear(0, 0.0495, 0.1637, 0.3041, 0.4466, 0.5775, 0.69, 0.7818, 0.8536, 0.9075, 0.9465, 0.9734, 0.9911, 1.0019, 1.0079, 1.0105, 1.0111, 1.0104, 1.0091, 1.0075, 1.0059, 1.0045, 1.0033, 1.0023, 1.0015, 1.001, 1)'
+    : 'cubic-bezier(.2,.9,.3,1)';
+
+  const $ = (sel, root = document) => root.querySelector(sel);
+  const wait = ms => new Promise(r => setTimeout(r, ms));
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } },
+    del(k) { try { localStorage.removeItem(k); } catch (e) { /* storage unavailable */ } }
+  };
+  const newId = () => (window.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+
+  function h(tag, props = {}, ...kids) {
+    const el = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (v == null || v === false) continue;
+      if (k === 'class') el.className = v;
+      else if (k === 'text') el.textContent = v;
+      else if (k === 'html') el.innerHTML = v; // static, trusted markup only
+      else el.setAttribute(k, v === true ? '' : v);
+    }
+    for (const kid of kids.flat()) if (kid != null) el.append(kid);
+    return el;
+  }
+
+  const state = { role: null, answers: {}, qid: null, responseId: null };
+  const visible = () => SURVEYS[state.role].filter(q => !q.showIf || q.showIf(state.answers));
+
+  /* ---------- Motion helpers ---------- */
+  function jelly(el) {
+    if (reduce) return;
+    el.animate(
+      [{ transform: 'scale(1)' }, { transform: 'scale(.95)', offset: .25 }, { transform: 'scale(1.025)', offset: .6 }, { transform: 'scale(1)' }],
+      { duration: 440, easing: 'ease-out' }
+    );
+  }
+
+  let busy = false;
+  async function go(build, dir = 1) {
+    if (busy) return;
+    busy = true;
+    const stage = $('#stage'), sheet = $('#sheet');
+    const old = stage.firstElementChild;
+    try {
+      const startH = sheet.offsetHeight;
+      if (old && !reduce) {
+        await old.animate(
+          [{ opacity: 1, transform: 'none', filter: 'blur(0px)' },
+           { opacity: 0, transform: `translateX(${-22 * dir}px) scale(.985)`, filter: 'blur(4px)' }],
+          { duration: 170, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }
+        ).finished;
+      }
+      const next = build();
+      stage.replaceChildren(next);
+      if (old && !reduce) {
+        const endH = sheet.offsetHeight;
+        if (Math.abs(endH - startH) > 1) {
+          sheet.animate([{ height: `${startH}px` }, { height: `${endH}px` }], { duration: 620, easing: SPRING });
+        }
+        next.animate(
+          [{ opacity: 0, transform: `translateX(${26 * dir}px) scale(.985)`, filter: 'blur(4px)' },
+           { opacity: 1, transform: 'none', filter: 'blur(0px)' }],
+          { duration: 460, easing: SPRING_SOFT, fill: 'backwards' }
+        );
+      }
+      if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      const title = $('#title');
+      if (title) title.focus({ preventScroll: true });
+    } finally {
+      busy = false;
+    }
+  }
+
+  function showTopbar(show) {
+    const bar = $('#topbar');
+    if (show === !bar.hidden) return;
+    bar.hidden = !show;
+    if (show && !reduce) {
+      bar.animate([{ opacity: 0, transform: 'translateY(-10px) scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: 520, easing: SPRING });
+    }
+  }
+
+  function updateProgress(n, total) {
+    $('#fill').style.width = `${(n / total) * 100}%`;
+    $('#count').textContent = `${n} of ${total}`;
+    const p = $('#progress');
+    p.setAttribute('aria-valuemax', String(total));
+    p.setAttribute('aria-valuenow', String(n));
+    p.setAttribute('aria-valuetext', `Question ${n} of ${total}`);
+  }
+
+  // Light follows your finger across the glass.
+  let shineFrame = 0, shineEvent = null;
+  function queueShine(e) { shineEvent = e; if (!shineFrame) shineFrame = requestAnimationFrame(applyShine); }
+  function applyShine() {
+    shineFrame = 0;
+    const e = shineEvent;
+    if (!e) return;
+    for (const el of document.querySelectorAll('[data-shine]')) {
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      el.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
+      el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
+    }
+  }
+  if (!reduce) {
+    document.addEventListener('pointermove', queueShine, { passive: true });
+    document.addEventListener('pointerdown', queueShine, { passive: true });
+  }
+
+  /* ---------- Screens ---------- */
+  function glyph() {
+    const wrap = h('div', { class: 'glyph', html: GLYPH });
+    if (reduce) {
+      wrap.querySelectorAll('animate').forEach(a => {
+        const values = a.getAttribute('values').split(';');
+        a.parentNode.setAttribute(a.getAttribute('attributeName'), values[values.length - 1]);
+        a.remove();
+      });
+    }
+    return wrap;
+  }
+
+  function renderWelcome() {
+    const roleButton = (role, title, sub) => {
+      const b = h('button', { class: 'role', type: 'button', 'data-shine': true },
+        h('span', { class: `badge ${role}`, html: ICON[role] }),
+        h('span', { class: 'role-text' },
+          h('span', { class: 'role-title', text: title }),
+          h('span', { class: 'role-sub', text: sub })),
+        h('span', { class: 'chev', html: ICON.chev }));
+      b.addEventListener('click', () => { jelly(b); chooseRole(role); });
+      return b;
+    };
+    return h('div', { class: 'screen' },
+      glyph(),
+      h('h1', { id: 'title', tabindex: '-1', text: 'Should campus go cashless?' }),
+      h('p', { class: 'lede', text: "We're a CIT1142 student group researching digital payments for the campus vendors. It takes about 3 minutes." }),
+      h('p', { class: 'ask', id: 'ask', text: 'Which one are you?' }),
+      h('div', { class: 'roles', role: 'group', 'aria-labelledby': 'ask' },
+        roleButton('student', "I'm a student", 'I buy from the campus vendors'),
+        roleButton('vendor', "I'm a vendor", 'I sell food or goods on campus')),
+      h('p', { class: 'fine', text: "Your answers are anonymous. We don't ask for your name, and responses are only used for our class report." }));
+  }
+
+  function chooseRole(role) {
+    if (busy) return;
+    if (state.role !== role) { state.answers = {}; state.responseId = newId(); }
+    state.role = role;
+    state.qid = visible()[0].id;
+    showTopbar(true);
+    go(renderQuestion, 1);
+  }
+
+  function primaryButton(label) {
+    return h('button', { class: 'btn btn-primary', type: 'button', id: 'primary' }, h('span', { class: 'btn-label', text: label }));
+  }
+  const errorSlot = () => h('p', { class: 'error', id: 'error', role: 'alert', hidden: true });
+
+  function arrowKeys(list) {
+    list.addEventListener('keydown', e => {
+      const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
+      if (!(e.key in keys)) return;
+      const items = [...list.querySelectorAll('button')];
+      const i = items.indexOf(document.activeElement);
+      if (i < 0) return;
+      e.preventDefault();
+      items[(i + keys[e.key] + items.length) % items.length].focus();
+    });
+  }
+
+  function renderQuestion() {
+    const vis = visible();
+    let i = vis.findIndex(q => q.id === state.qid);
+    if (i < 0) { i = 0; state.qid = vis[0].id; }
+    const q = vis[i];
+    const isLast = i === vis.length - 1;
+    updateProgress(i + 1, vis.length);
+
+    const screen = h('div', { class: 'screen' },
+      h('h2', { id: 'title', tabindex: '-1', text: q.title }),
+      h('p', { class: 'hint', id: 'hint', text: HINTS[q.type] }));
+
+    if (q.type === 'single' || q.type === 'multi') screen.append(...renderChoices(q, isLast));
+    else if (q.type === 'scale') screen.append(...renderScale(q, isLast));
+    else screen.append(...renderText(q, isLast));
+    return screen;
+  }
+
+  function renderChoices(q, isLast) {
+    const multi = q.type === 'multi';
+    const autoAdvance = !multi && !isLast;
+    const list = h('div', { class: 'opts', role: multi ? 'group' : 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
+    const selected = () => multi ? new Set(state.answers[q.id] || []) : new Set(state.answers[q.id] ? [state.answers[q.id]] : []);
+    let cont = null;
+
+    const buttons = q.options.map(label => {
+      const b = h('button', { class: 'opt', type: 'button', role: multi ? 'checkbox' : 'radio', 'aria-checked': String(selected().has(label)) },
+        h('span', { class: 'mark', html: ICON.check }),
+        h('span', { class: 'opt-label', text: label }));
+      b.addEventListener('click', () => {
+        if (busy) return;
+        let sel = selected();
+        if (multi) {
+          if (sel.has(label)) sel.delete(label);
+          else {
+            if (q.exclusive && label === q.exclusive) sel = new Set();
+            else if (q.exclusive) sel.delete(q.exclusive);
+            sel.add(label);
+          }
+          state.answers[q.id] = q.options.filter(o => sel.has(o));
+        } else {
+          sel = new Set([label]);
+          state.answers[q.id] = label;
+        }
+        buttons.forEach((x, idx) => x.setAttribute('aria-checked', String(sel.has(q.options[idx]))));
+        jelly(b);
+        if (cont) cont.disabled = sel.size === 0;
+        if (autoAdvance) scheduleNext();
+      });
+      return b;
+    });
+    list.append(...buttons);
+    arrowKeys(list);
+    if (autoAdvance) return [list];
+
+    cont = primaryButton(isLast ? 'Send answers' : 'Continue');
+    cont.disabled = selected().size === 0;
+    cont.addEventListener('click', next);
+    return [list, cont, errorSlot()];
+  }
+
+  function renderScale(q, isLast) {
+    const row = h('div', { class: 'scale', role: 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
+    let cont = null;
+    const buttons = [1, 2, 3, 4, 5].map(n => {
+      const label = n === 1 ? `1, ${q.low}` : n === 5 ? `5, ${q.high}` : String(n);
+      const b = h('button', { class: 'opt', type: 'button', role: 'radio', 'aria-checked': String(state.answers[q.id] === n), 'aria-label': label, text: String(n) });
+      b.addEventListener('click', () => {
+        if (busy) return;
+        state.answers[q.id] = n;
+        buttons.forEach((x, idx) => x.setAttribute('aria-checked', String(idx + 1 === n)));
+        jelly(b);
+        if (cont) cont.disabled = false;
+        else scheduleNext();
+      });
+      return b;
+    });
+    row.append(...buttons);
+    arrowKeys(row);
+    const labels = h('div', { class: 'scale-labels', 'aria-hidden': 'true' }, h('span', { text: q.low }), h('span', { text: q.high }));
+    if (!isLast) return [row, labels];
+    cont = primaryButton('Send answers');
+    cont.disabled = state.answers[q.id] == null;
+    cont.addEventListener('click', next);
+    return [row, labels, cont, errorSlot()];
+  }
+
+  function renderText(q, isLast) {
+    const field = h('textarea', { class: 'field', rows: '4', maxlength: '600', placeholder: q.placeholder || 'Type your answer', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
+    field.value = state.answers[q.id] || '';
+    field.addEventListener('input', () => { state.answers[q.id] = field.value; });
+    const cont = primaryButton(isLast ? 'Send answers' : 'Continue');
+    cont.addEventListener('click', next);
+    return [field, cont, errorSlot()];
+  }
+
+  function renderDone() {
+    const isVendor = state.role === 'vendor';
+    const share = primaryButton('Share the survey');
+    const shareLabel = $('.btn-label', share);
+    share.addEventListener('click', async () => {
+      const url = location.href.split('#')[0];
+      const data = { title: 'Should campus go cashless?', text: 'Take our 3-minute survey on digital payments for the campus vendors.', url };
+      try {
+        if (navigator.share) { await navigator.share(data); return; }
+        await navigator.clipboard.writeText(url);
+        shareLabel.textContent = 'Link copied';
+      } catch (e) {
+        if (e && e.name === 'AbortError') return;
+        shareLabel.textContent = 'Copy the link from your address bar';
+      }
+    });
+    const again = h('button', { class: 'btn btn-link', type: 'button', text: 'Start a new response' });
+    again.addEventListener('click', () => {
+      store.del(DONE_KEY);
+      state.role = null; state.answers = {}; state.qid = null;
+      go(renderWelcome, -1);
+    });
+    return h('div', { class: 'screen' },
+      h('div', { class: 'orb', html: ICON.done }),
+      h('h1', { id: 'title', tabindex: '-1', text: 'Your answers are in' }),
+      h('p', { class: 'lede', text: isVendor
+        ? 'Thank you for your time. Your answers help us design a payment system that works for vendors, not just students.'
+        : 'Thank you. Know other students who buy from the vendors? Send them the survey too.' }),
+      share,
+      h('div', { class: 'again' }, again));
+  }
+
+  /* ---------- Navigation ---------- */
+  let advanceTimer = 0;
+  function scheduleNext() {
+    clearTimeout(advanceTimer);
+    advanceTimer = setTimeout(next, reduce ? 150 : 430);
+  }
+
+  function next() {
+    clearTimeout(advanceTimer);
+    if (busy) { advanceTimer = setTimeout(next, 120); return; }
+    const vis = visible();
+    const i = vis.findIndex(q => q.id === state.qid);
+    if (i < vis.length - 1) { state.qid = vis[i + 1].id; go(renderQuestion, 1); }
+    else submit();
+  }
+
+  function back() {
+    clearTimeout(advanceTimer);
+    if (busy || sending) return;
+    const vis = visible();
+    const i = vis.findIndex(q => q.id === state.qid);
+    if (i > 0) { state.qid = vis[i - 1].id; go(renderQuestion, -1); }
+    else { showTopbar(false); go(renderWelcome, -1); }
+  }
+  $('#back').addEventListener('click', back);
+
+  /* ---------- Sending ---------- */
+  function buildPayload() {
+    const answers = {};
+    for (const q of visible()) {
+      const v = state.answers[q.id];
+      answers[q.col] = Array.isArray(v) ? v.join(', ') : (v == null ? '' : String(v).trim());
+    }
+    return { id: state.responseId, role: state.role, submittedAt: new Date().toISOString(), answers };
+  }
+
+  let sending = false;
+  async function submit() {
+    if (sending) return;
+    sending = true;
+    const btn = $('#primary'), err = $('#error');
+    const label = btn && $('.btn-label', btn);
+    if (err) err.hidden = true;
+    if (btn) {
+      btn.disabled = true;
+      btn.setAttribute('aria-busy', 'true');
+      btn.prepend(h('span', { class: 'spinner', 'aria-hidden': 'true' }));
+      label.textContent = 'Sending';
+    }
+    const payload = buildPayload();
+    try {
+      if (RESPONSES_URL) {
+        await fetch(RESPONSES_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+      } else {
+        await wait(700);
+        console.info('[Preview mode] This response was not saved:', payload);
+      }
+      store.set(DONE_KEY, '1');
+      showTopbar(false);
+      await go(renderDone, 1);
+    } catch (e) {
+      if (btn) {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        const spin = $('.spinner', btn);
+        if (spin) spin.remove();
+        label.textContent = 'Send answers';
+      }
+      if (err) {
+        err.textContent = "Your answers didn't send. Check your internet connection, then tap Send answers again.";
+        err.hidden = false;
+      }
+    } finally {
+      sending = false;
+    }
+  }
+
+  /* ---------- Start ---------- */
+  if (!RESPONSES_URL) $('#chip').hidden = false;
+  $('#stage').replaceChildren(store.get(DONE_KEY) ? renderDone() : renderWelcome());
+})();
+</script>
+</body>
+</html>
