@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#E8ECF4" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#070A14" media="(prefers-color-scheme: dark)">
-<title>Should campus go cashless? Student and vendor survey</title>
-<meta name="description" content="A 3-minute survey on digital payments for the campus vendors.">
+<title>How should paying on campus work? Student and vendor survey</title>
+<meta name="description" content="A 3-minute survey on digital payments at the campus vendors.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='18' y='4' width='28' height='56' rx='8' fill='%235B4BFF'/%3E%3Crect x='23' y='20' width='5' height='5' fill='white'/%3E%3Crect x='36' y='20' width='5' height='5' fill='white'/%3E%3Crect x='23' y='33' width='5' height='5' fill='white'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -296,7 +296,74 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
 @keyframes draw{to{stroke-dashoffset:0;}}
 .again{display:flex; justify-content:center; margin-top:10px;}
 
-.chip{margin:6px auto 0; max-width:440px; padding:12px 18px; border-radius:20px; font-size:.8125rem; line-height:1.45; color:var(--ink-2); text-align:center;}
+.noscript{margin:0; padding:16px 20px; border-radius:20px; background:var(--glass-solid); font-size:.9375rem; text-align:center;}
+
+/* ---------- Screen sizes ---------- */
+h2{max-width:32ch;}
+
+/* Small phones */
+@media (max-width: 360px){
+  .app{padding-left:10px; padding-right:10px; gap:10px;}
+  .sheet{border-radius:28px; padding:22px 18px;}
+  h1{font-size:1.95rem;}
+  h2{font-size:1.35rem;}
+  .glyph{width:52px; height:52px; margin-bottom:16px;}
+  .icon-btn{width:46px; height:46px;}
+  .progress{height:46px; padding:0 14px; gap:10px;}
+  .role{padding:14px; gap:12px; border-radius:22px;}
+  .badge{width:46px; height:46px; border-radius:14px;}
+  .badge svg{width:23px; height:23px;}
+  .opt{padding:12px 14px; gap:12px; border-radius:18px;}
+  .scale{gap:6px;}
+}
+
+/* Tablets and larger */
+@media (min-width: 640px){
+  .app{width:min(700px, 100%); padding:clamp(32px, 9vh, 110px) 28px 56px; gap:14px;}
+  .sheet{padding:44px 46px; border-radius:40px;}
+  .roles{grid-template-columns:1fr 1fr; gap:14px;}
+  .role{flex-direction:column; align-items:flex-start; gap:22px; padding:22px; min-height:184px; border-radius:30px;}
+  .role .chev{position:absolute; top:24px; right:22px;}
+  .opts.two{grid-template-columns:1fr 1fr;}
+  .scale, .scale-labels{max-width:460px;}
+  .btn-primary{width:auto; min-width:240px; padding:0 40px;}
+  .again{justify-content:flex-start; margin-left:-14px;}
+  .c1{left:calc(50% - 470px); top:2vh;}
+  .c3{right:calc(50% - 400px); top:9vh;}
+  .k1{right:calc(50% - 560px); top:36vh;}
+  .c2{left:calc(50% - 460px); bottom:-6vh;}
+  .k2{right:calc(50% - 470px); bottom:3vh;}
+}
+
+/* Laptops and desktops */
+@media (min-width: 1024px){
+  .app{width:min(760px, 100%);}
+  .sheet{padding:52px 56px;}
+  h1{font-size:3.5rem;}
+  .lede{font-size:1.125rem;}
+  .c1{left:calc(50% - 620px); top:4vh; width:480px;}
+  .c3{right:calc(50% - 470px); top:8vh; width:170px;}
+  .k1{right:calc(50% - 700px); top:30vh; width:560px;}
+  .c2{left:calc(50% - 560px); bottom:-4vh; width:360px;}
+  .k2{right:calc(50% - 560px); bottom:4vh; width:280px;}
+}
+
+/* Phones turned sideways and other short screens */
+@media (max-height: 540px) and (orientation: landscape){
+  .app{width:min(760px, 100%); padding-top:12px; padding-bottom:24px;}
+  .sheet{padding:24px 28px; border-radius:30px;}
+  .glyph{width:42px; height:42px; margin-bottom:12px;}
+  h1{font-size:2rem;}
+  .ask{margin-top:18px;}
+  .roles{grid-template-columns:1fr 1fr;}
+  .role{flex-direction:row; align-items:center; min-height:0; padding:14px;}
+  .role .chev{position:static;}
+  .opts{grid-template-columns:1fr 1fr; margin-top:16px;}
+  .opt{min-height:48px; padding:10px 14px;}
+  .scale{max-width:380px; margin-top:18px;}
+  .scale-labels{max-width:380px;}
+  .btn-primary{width:auto; min-width:220px; margin-top:16px;}
+}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.01ms !important; animation-delay:0s !important; transition-duration:.01ms !important;}
@@ -327,8 +394,7 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
     <div id="stage"></div>
   </section>
 
-  <p class="chip glass" id="chip" hidden>Preview mode: answers aren't saved yet. Add your Google Sheets link to this page to start collecting responses.</p>
-  <noscript><p class="chip">This survey needs JavaScript. Turn it on in your browser settings, then reload the page.</p></noscript>
+  <noscript><p class="noscript">This survey needs JavaScript. Turn it on in your browser settings, then reload the page.</p></noscript>
 </main>
 
 <script>
@@ -338,7 +404,7 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
   // Paste your Google Apps Script web app URL between the quotes to start saving responses.
   const RESPONSES_URL = '';
 
-  const DONE_KEY = 'campus-cashless-survey-submitted';
+  const DONE_KEY = 'campus-payments-survey-submitted-v2';
 
   const SURVEYS = {
     student: [
@@ -348,56 +414,59 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
         options: ['Every day', 'A few times a week', 'About once a week', 'Rarely', 'Never'] },
       { id: 's_spend', col: 'Spend per visit', type: 'single', title: 'How much do you usually spend per visit?',
         options: ['Under K20', 'K20 to K50', 'K50 to K100', 'Over K100'], showIf: a => a.s_freq !== 'Never' },
-      { id: 's_wait', col: 'Wait at busy times', type: 'single', title: 'How long do you usually wait to be served at busy times?',
-        options: ['Under 5 minutes', '5 to 10 minutes', '10 to 20 minutes', 'Over 20 minutes'], showIf: a => a.s_freq !== 'Never' },
-      { id: 's_change', col: 'Vendor had no change', type: 'single', title: 'How often do the vendors not have change for you?',
-        options: ['Never', 'Sometimes', 'Often', 'Very often'], showIf: a => a.s_freq !== 'Never' },
-      { id: 's_cash', col: 'Carries cash', type: 'single', title: 'How often do you have cash on you?',
-        options: ['Always', 'Most days', 'Sometimes', 'Rarely', 'Never'] },
-      { id: 's_nocash', col: 'Could not buy (no cash)', type: 'single',
-        title: "How often have you wanted to buy from the vendors but couldn't because you had no cash on you?",
-        options: ['Never', 'Once or twice', 'Sometimes', 'Often', 'Very often'] },
+      { id: 's_paywith', col: 'Usually pays with', type: 'single', title: 'How do you usually pay the vendors?',
+        options: ['Cash', 'Mobile money', 'A mix of both'], showIf: a => a.s_freq !== 'Never' },
+      { id: 's_mm_time', col: 'Mobile money payment time', type: 'single',
+        title: 'When you pay by mobile money, how long does it take until the vendor confirms your payment?',
+        options: ['Under 1 minute', '1 to 2 minutes', '2 to 5 minutes', 'Over 5 minutes'],
+        showIf: a => a.s_freq !== 'Never' && a.s_paywith !== 'Cash' },
+      { id: 's_mm_problems', col: 'Mobile money problems', type: 'multi', title: 'What problems have you had paying the vendors by mobile money?',
+        options: ['Typing the number or amount wrong', 'Waiting for the payment to go through', 'Waiting while the vendor checks the SMS', 'Network or system down', 'Fees on small payments', "Vendor said the money didn't arrive", 'None of these'],
+        exclusive: 'None of these', showIf: a => a.s_freq !== 'Never' && a.s_paywith !== 'Cash' },
+      { id: 's_cash_why', col: 'Why still pays cash', type: 'multi', title: 'Why do you still pay with cash?',
+        options: ["It's faster", 'Mobile money fees', 'Network problems', "I don't have mobile money", 'The vendor prefers cash', 'Habit'],
+        showIf: a => a.s_freq !== 'Never' && a.s_paywith !== 'Mobile money' },
       { id: 's_has', col: 'Has', type: 'multi', title: 'Which of these do you have?',
         options: ['A smartphone', 'Mobile money', 'A bank account', 'A bank card', 'A banking app', 'None of these'], exclusive: 'None of these' },
-      { id: 's_main', col: 'Main everyday payment', type: 'single', title: 'What do you use most for everyday payments?',
-        options: ['Cash', 'Mobile money', 'Bank card', 'Banking app'] },
-      { id: 's_likely', col: 'Likely to pay digitally (1-5)', type: 'scale',
-        title: 'If the vendors accepted digital payments, how likely are you to pay that way?', low: 'Not likely', high: 'Very likely' },
-      { id: 's_prefer', col: 'Preferred way to pay', type: 'single', title: 'How would you most like to pay the vendors?',
-        options: ['Scan a QR code in an app', 'Send mobile money', 'Tap a bank card', 'Keep paying cash'] },
-      { id: 's_features', col: 'Useful app features', type: 'multi', title: 'Which of these would you use in a campus payment app?',
-        options: ['Scan to pay', 'Order ahead and skip the queue', 'Digital receipts', 'Spending tracker', 'Loyalty rewards or discounts', 'None of these'], exclusive: 'None of these' },
-      { id: 's_worries', col: 'Worries', type: 'multi', title: 'What worries you about paying digitally on campus?',
-        options: ['Network going down', 'Transaction fees', 'Fraud or scams', 'Privacy of my spending', 'Phone battery dying', 'Nothing worries me'], exclusive: 'Nothing worries me' },
-      { id: 's_more', col: 'Other comments', type: 'text', title: "Anything else you'd like to tell us?", placeholder: 'Type your answer' }
+      { id: 's_features', col: 'Payment features wanted', type: 'multi', title: 'Which of these would you use in a campus payment app?',
+        options: ['Scan a QR code to pay', 'Pay ahead and collect without queuing', 'Instant digital receipts', 'Spending tracker and budget', 'Split a bill with friends', 'Rewards for paying digitally', 'None of these'], exclusive: 'None of these' },
+      { id: 's_likely', col: 'Likely to use instant payments (1-5)', type: 'scale',
+        title: 'If paying a vendor took one scan and was confirmed instantly, how likely are you to use it?', low: 'Not likely', high: 'Very likely' },
+      { id: 's_trust', col: 'Needs before trusting an app', type: 'multi', title: 'What would you need before trusting a campus payment app?',
+        options: ['Run with a known mobile money provider or bank', 'Approved by the university', 'Fees shown upfront', 'A receipt for every payment', 'A way to get money back if something goes wrong', 'My spending kept private'] },
+      { id: 's_more', col: 'Other comments', type: 'text', title: "Anything else you'd like to tell us about paying on campus?", placeholder: 'Type your answer' }
     ],
     vendor: [
       { id: 'v_sell', col: 'Sells', type: 'multi', title: 'What do you sell?',
         options: ['Meals', 'Snacks', 'Drinks', 'Stationery or printing', 'Something else'] },
-      { id: 'v_years', col: 'Years on campus', type: 'single', title: 'How long have you been selling on campus?',
-        options: ['Less than a year', '1 to 3 years', '3 to 5 years', 'More than 5 years'] },
       { id: 'v_customers', col: 'Customers per day', type: 'single', title: 'About how many customers do you serve on a normal day?',
         options: ['Fewer than 50', '50 to 100', '100 to 200', 'More than 200'] },
-      { id: 'v_paynow', col: 'How customers pay now', type: 'single', title: 'How do your customers pay today?',
-        options: ['Cash only', 'Mostly cash, some mobile money', 'About half cash, half digital'] },
-      { id: 'v_has', col: 'Has', type: 'multi', title: 'Which of these do you have?',
-        options: ['A smartphone', 'A mobile money account', 'A bank account', 'A merchant (till) code', 'None of these'], exclusive: 'None of these' },
-      { id: 'v_problems', col: 'Problems with cash', type: 'multi', title: 'Which of these problems do you have with cash?',
-        options: ['Running out of change', 'Counting and recording sales', 'Risk of theft or losing cash', 'Fake notes', 'Long queues at busy times', 'Taking cash to the bank', 'None of these'], exclusive: 'None of these' },
-      { id: 'v_lost', col: 'Students leave (no cash)', type: 'single', title: 'How often do students leave without buying because they have no cash?',
-        options: ['Never', 'Sometimes', 'Often', 'Every day'] },
+      { id: 'v_accepts', col: 'Payments accepted', type: 'multi', title: 'Which payments do you accept?',
+        options: ['Cash', 'MTN Mobile Money', 'Airtel Money', 'Zamtel Kwacha', 'Bank card or transfer'] },
+      { id: 'v_split', col: 'Share of sales by mobile money', type: 'single', title: 'Roughly how much of your sales come through mobile money?',
+        options: ['Under a quarter', 'A quarter to half', 'Half to three quarters', 'Over three quarters'] },
+      { id: 'v_account', col: 'Customers pay into', type: 'single', title: 'Which number do customers pay into?',
+        options: ['My personal mobile money number', 'A merchant (till) code', 'Both'] },
+      { id: 'v_confirm', col: 'How payment is checked', type: 'single', title: 'How do you check that a mobile money payment has arrived?',
+        options: ['I check the SMS', 'I check my balance', "I trust the customer's screen", "I don't usually check"] },
+      { id: 'v_problems', col: 'Mobile money problems', type: 'multi', title: 'Which problems have you had with mobile money payments?',
+        options: ['Waiting for the SMS at busy times', 'Fake or wrong payment messages', 'Customers sending the wrong amount', 'Network or system down', 'Fees when customers pay', 'Fees when I withdraw cash', 'Business and personal money mixed together', 'None of these'],
+        exclusive: 'None of these' },
+      { id: 'v_cash_need', col: 'Still needs cash for', type: 'multi', title: 'What do you still need cash for?',
+        options: ['Buying stock from suppliers', 'Paying workers', 'Transport', 'Giving change', 'Nothing'], exclusive: 'Nothing' },
       { id: 'v_records', col: 'Sales records', type: 'single', title: 'How do you keep track of daily sales?',
         options: ['Written in a book', 'On my phone', 'I keep it in my head', "I don't keep records"] },
-      { id: 'v_thought', col: 'Considered digital payments', type: 'single', title: 'Have you thought about accepting digital payments?',
-        options: ['I already accept some', "Yes, but I haven't started", "I've never really thought about it", "I don't want to"] },
-      { id: 'v_barriers', col: 'What would stop them', type: 'multi', title: 'What would stop you from accepting digital payments?',
-        options: ['Fees or charges', 'Not knowing how to set it up', 'I need cash to buy stock', 'Network problems', 'Worry about fraud', 'Waiting for payments to confirm', 'Nothing would stop me'], exclusive: 'Nothing would stop me' },
-      { id: 'v_interest', col: 'Interest in campus app (1-5)', type: 'scale',
-        title: 'How interested would you be in an app where students scan your QR code to pay, and you see every payment and your daily total on your phone?',
+      { id: 'v_features', col: 'Payment features wanted', type: 'multi', title: 'Which of these would help your business?',
+        options: ['Every payment confirmed on one screen', 'Daily and weekly sales totals', 'Students pay before they collect', 'Business money kept separate from personal', 'Paying suppliers digitally', 'Access to a small business loan', 'None of these'],
+        exclusive: 'None of these' },
+      { id: 'v_interest', col: 'Interest in payment app (1-5)', type: 'scale',
+        title: 'How interested would you be in an app that confirms every payment instantly and shows your daily sales total?',
         low: 'Not interested', high: 'Very interested' },
+      { id: 'v_fee', col: 'Fee willing to pay', type: 'single', title: 'Would you pay a small fee per payment for that?',
+        options: ['No, it would need to be free', 'Yes, up to 1% per payment', 'Yes, up to 2% per payment'] },
       { id: 'v_pilot', col: 'Would try a 2-week test', type: 'single', title: 'Would you try it for two weeks as a test?',
         options: ['Yes', 'Maybe', 'No'] },
-      { id: 'v_switch', col: 'What would make them switch', type: 'text', title: 'What would make you switch to digital payments?', placeholder: 'Type your answer' }
+      { id: 'v_more', col: 'Other comments', type: 'text', title: 'Anything else about payments you would like us to know?', placeholder: 'Type your answer' }
     ]
   };
 
@@ -590,8 +659,8 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
     };
     return h('div', { class: 'screen' },
       glyph(),
-      h('h1', { id: 'title', tabindex: '-1', text: 'Should campus go cashless?' }),
-      h('p', { class: 'lede', text: "We're a CIT1142 student group researching digital payments for the campus vendors. It takes about 3 minutes." }),
+      h('h1', { id: 'title', tabindex: '-1', text: 'How should paying on campus work?' }),
+      h('p', { class: 'lede', text: "We're a CIT1142 student group researching digital payments at the campus vendors. It takes about 3 minutes." }),
       h('p', { class: 'ask', id: 'ask', text: 'Which one are you?' }),
       h('div', { class: 'roles', role: 'group', 'aria-labelledby': 'ask' },
         roleButton('student', "I'm a student", 'I buy from the campus vendors'),
@@ -646,7 +715,8 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
   function renderChoices(q, isLast) {
     const multi = q.type === 'multi';
     const autoAdvance = !multi && !isLast;
-    const list = h('div', { class: 'opts', role: multi ? 'group' : 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
+    const twoCol = q.options.length >= 4 && Math.max(...q.options.map(o => o.length)) <= 32;
+    const list = h('div', { class: twoCol ? 'opts two' : 'opts', role: multi ? 'group' : 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
     const selected = () => multi ? new Set(state.answers[q.id] || []) : new Set(state.answers[q.id] ? [state.answers[q.id]] : []);
     let cont = null;
 
@@ -727,7 +797,7 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
     const shareLabel = $('.btn-label', share);
     share.addEventListener('click', async () => {
       const url = location.href.split('#')[0];
-      const data = { title: 'Should campus go cashless?', text: 'Take our 3-minute survey on digital payments for the campus vendors.', url };
+      const data = { title: 'How should paying on campus work?', text: 'Take our 3-minute survey on digital payments at the campus vendors.', url };
       try {
         if (navigator.share) { await navigator.share(data); return; }
         await navigator.clipboard.writeText(url);
@@ -778,6 +848,20 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
     else { showTopbar(false); go(renderWelcome, -1); }
   }
   $('#back').addEventListener('click', back);
+
+  document.addEventListener('keydown', e => {
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+    const t = e.target;
+    if (t && (t.tagName === 'TEXTAREA' || t.tagName === 'INPUT')) return;
+    if (/^[1-9]$/.test(e.key)) {
+      const choices = document.querySelectorAll('#stage .role, #stage .opts .opt, #stage .scale .opt');
+      const pick = choices[Number(e.key) - 1];
+      if (pick) { e.preventDefault(); pick.click(); }
+    } else if (e.key === 'Enter' && !(t && t.tagName === 'BUTTON')) {
+      const primary = $('#primary');
+      if (primary && !primary.disabled) { e.preventDefault(); primary.click(); }
+    }
+  });
 
   /* ---------- Sending ---------- */
   function buildPayload() {
@@ -836,7 +920,7 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
   }
 
   /* ---------- Start ---------- */
-  if (!RESPONSES_URL) $('#chip').hidden = false;
+  if (!RESPONSES_URL) console.warn('RESPONSES_URL is empty, so answers are not being saved. Paste your Apps Script web app URL into index.html.');
   $('#stage').replaceChildren(store.get(DONE_KEY) ? renderDone() : renderWelcome());
 })();
 </script>
