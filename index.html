@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+<base target="_top">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <meta name="theme-color" content="#e6eafa" id="theme-colour">
@@ -256,9 +257,13 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
 <script>
 (() => {
   'use strict';
-  // Keep the /exec URL from your deployment. A Google Sheets sharing URL will not work.
+  // Optional fallback for external hosting. Apps Script hosting connects automatically.
   const RESPONSES_URL = 'https://script.google.com/macros/s/AKfycbyfIWmjGIAP2YCTEX-eixhCT1amNmrTTHBs1Hy-R7lbiOcObAOr-dRIfTF2kYwz0K8/exec';
-  const PREVIEW = !RESPONSES_URL || new URLSearchParams(location.search).get('preview') === '1';
+  const HOST_CONFIG = window.CAMPUS_HOST_CONFIG || {};
+  const APPS_SCRIPT = Boolean(window.google && google.script && google.script.run);
+  const PREVIEW = HOST_CONFIG.preview === true ||
+    new URLSearchParams(location.search).get('preview') === '1' ||
+    (!APPS_SCRIPT && !RESPONSES_URL);
   const DONE_KEY = 'campus-cashless-survey-confirmed-v2';
   const THEME_KEY = 'campus-theme';
   const SURVEYS = {
@@ -348,7 +353,7 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
       if (v == null || v === false) continue;
       if (k === 'class') el.className = v;
       else if (k === 'text') el.textContent = v;
-      else if (k === 'html') el.innerHTML = v;
+      else if (k === 'html') el.innerHTML = v; // Only static markup defined in this file.
       else el.setAttribute(k,v === true ? '' : String(v));
     }
     for (const child of kids.flat()) if (child != null) el.append(child);
@@ -515,6 +520,41 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
     for(const q of visible()) { const v=state.answers[q.id]; answers[q.col]=Array.isArray(v)?v.join(', '):String(v ?? '').trim(); }
     return {id:state.responseId,role:state.role,submittedAt:new Date().toISOString(),answers};
   }
+  function sendAnswers(body, signal) {
+    if (!APPS_SCRIPT) {
+      return fetch(RESPONSES_URL, {
+        method:'POST', mode:'cors', credentials:'omit', redirect:'follow',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(body), signal
+      }).then(response => {
+        if (!response.ok) throw new Error('http');
+        return response.json();
+      });
+    }
+    // The hosted page talks directly to its own Apps Script project.
+    return new Promise((resolve, reject) => {
+      let settled = false;
+      const finish = (callback, value) => {
+        if (settled) return;
+        settled = true;
+        signal.removeEventListener('abort', abort);
+        callback(value);
+      };
+      const abort = () => {
+        const error = new Error('Save confirmation timed out');
+        error.name = 'AbortError';
+        finish(reject, error);
+      };
+      if (signal.aborted) { abort(); return; }
+      signal.addEventListener('abort', abort, {once:true});
+      try {
+        google.script.run
+          .withSuccessHandler(result => finish(resolve, result))
+          .withFailureHandler(error => finish(reject, error))
+          .submitSurvey(body);
+      } catch (error) { finish(reject, error); }
+    });
+  }
   async function submit() {
     if(sending) return;
     sending=true;
@@ -529,11 +569,8 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
     const timeout=setTimeout(()=>controller.abort(),25000);
     try {
       if(!PREVIEW) {
-        
-        const response=await fetch(RESPONSES_URL,{method:'POST',mode:'cors',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload()),signal:controller.signal});
-        if(!response.ok) throw new Error('http');
-        const result=await response.json();
-        if(result.ok!==true) throw new Error('save');
+        const result=await sendAnswers(payload(),controller.signal);
+        if(!result || result.ok!==true) throw new Error('save');
         state.receipt={role:state.role,id:state.responseId};
         storage.set(DONE_KEY,JSON.stringify(state.receipt));
       }
@@ -552,7 +589,7 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
   function done(focus=true) {
     const share=primary('Share the survey',async()=>{
       if(!/^https?:$/.test(location.protocol)) { $('.btn-label',share).textContent='Share your hosted website link'; return; }
-      const url=new URL(location.href); url.searchParams.delete('preview'); url.hash='';
+      const url=new URL(HOST_CONFIG.url || location.href); url.searchParams.delete('preview'); url.hash='';
       const data={title:'Should campus go cashless?',text:'Take our 3-minute campus payments survey.',url:url.href};
       try {
         if(navigator.share) await navigator.share(data);
@@ -582,4 +619,3 @@ h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; 
 </script>
 </body>
 </html>
--
