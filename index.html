@@ -2,337 +2,265 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#E8ECF4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#070A14" media="(prefers-color-scheme: dark)">
-<title>Should campus go cashless? Student and vendor survey</title>
-<meta name="description" content="A 3-minute survey on digital payments for the campus vendors.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='18' y='4' width='28' height='56' rx='8' fill='%235B4BFF'/%3E%3Crect x='23' y='20' width='5' height='5' fill='white'/%3E%3Crect x='36' y='20' width='5' height='5' fill='white'/%3E%3Crect x='23' y='33' width='5' height='5' fill='white'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#e6eafa" id="theme-colour">
+<meta name="description" content="A 3-minute, anonymous survey about digital payments for campus vendors.">
+<title>Campus — a little change starts with you</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='20' fill='%23534ee8'/%3E%3Cpath d='M18 33a14 14 0 0 1 28 0M24 33a8 8 0 0 1 16 0M30 33a2 2 0 0 1 4 0' fill='none' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
 
+<script>
+try { const t = localStorage.getItem('campus-theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch (_) {}
+</script>
 <style>
-:root{
-  --bg:#E8ECF4;
-  --ink:#0D1222;
-  --ink-2:rgba(13,18,34,.66);
-  --ink-3:rgba(13,18,34,.46);
-  --glass-hi:rgba(255,255,255,.58);
-  --glass-lo:rgba(255,255,255,.24);
-  --glass-solid:rgba(246,248,252,.94);
-  --rim:rgba(255,255,255,.95);
-  --edge:rgba(255,255,255,.6);
-  --sheen:rgba(255,255,255,.6);
-  --inner-glow:rgba(255,255,255,.45);
-  --shade:rgba(38,50,92,.22);
-  --shade-soft:rgba(38,50,92,.10);
-  --pill:rgba(255,255,255,.52);
-  --pill-hover:rgba(255,255,255,.82);
-  --track:rgba(13,18,34,.09);
-  --accent:#4F46FF;
-  --accent-2:#1F6FEB;
-  --accent-glow:rgba(79,70,255,.38);
-  --focus:#1F6FEB;
-  --danger:#C81E4A;
-  --tangerine:#FF8A3D;
-  --pink:#FF4F9A;
-  --violet:#6B5BFF;
-  --teal:#1FC7B6;
-  --sky:#3A9BFF;
-  --spring:cubic-bezier(.34,1.35,.64,1);
-  --ease-out:cubic-bezier(.2,.8,.2,1);
-  color-scheme:light dark;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
+:root {
+  color-scheme:light;
+  --bg:#e6eafa; --ink:#17213c; --muted:#535f7b; --quiet:#64708a;
+  --glass:rgba(248,250,255,.58); --glass-end:rgba(242,246,255,.32);
+  --rim:rgba(255,255,255,.95); --edge:rgba(255,255,255,.54);
+  --surface:rgba(255,255,255,.43); --hover:rgba(255,255,255,.76);
+  --solid:#eef1fa; --line:rgba(48,61,105,.12); --shadow:rgba(48,57,110,.14);
+  --accent:#5047dc; --accent-end:#7262eb; --selected:rgba(100,90,238,.13);
+  --danger:#aa244c; --green:#27745d; --focus:#4135d0;
+  --ease:cubic-bezier(.2,.8,.2,1); --radius:34px;
 }
-@supports (transition-timing-function: linear(0, 1)){
-  :root{--spring:linear(0, 0.0686, 0.228, 0.4224, 0.6133, 0.7779, 0.9058, 0.9952, 1.05, 1.0769, 1.0835, 1.0769, 1.0632, 1.0468, 1.031, 1.0175, 1.0071, 0.9999, 0.9955, 0.9935, 0.993, 0.9937, 0.9948, 0.9962, 0.9975, 0.9986, 1);}
+:root[data-theme="dark"] {
+  color-scheme:dark;
+  --bg:#111629; --ink:#f3f3fc; --muted:#c0c7de; --quiet:#abb5d0;
+  --glass:rgba(31,37,62,.73); --glass-end:rgba(26,32,55,.59);
+  --rim:rgba(255,255,255,.4); --edge:rgba(230,235,255,.16);
+  --surface:rgba(236,240,255,.075); --hover:rgba(236,240,255,.15);
+  --solid:#222a44; --line:rgba(225,230,255,.15); --shadow:rgba(0,0,0,.28);
+  --accent:#8176ff; --accent-end:#6354e2; --selected:rgba(141,128,255,.2);
+  --danger:#ffadc4; --green:#8fdec2; --focus:#b6afff;
 }
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#070A14; --ink:#F2F4FA; --ink-2:rgba(242,244,250,.7); --ink-3:rgba(242,244,250,.48);
-    --glass-hi:rgba(255,255,255,.15); --glass-lo:rgba(255,255,255,.05); --glass-solid:rgba(22,26,42,.94);
-    --rim:rgba(255,255,255,.38); --edge:rgba(255,255,255,.14); --sheen:rgba(255,255,255,.2); --inner-glow:rgba(255,255,255,.08);
-    --shade:rgba(0,0,0,.55); --shade-soft:rgba(0,0,0,.3);
-    --pill:rgba(255,255,255,.08); --pill-hover:rgba(255,255,255,.14); --track:rgba(255,255,255,.12);
-    --accent:#5E54FF; --accent-2:#2F74E8; --accent-glow:rgba(94,84,255,.5); --focus:#7DB4FF; --danger:#FF7A95;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#070A14; --ink:#F2F4FA; --ink-2:rgba(242,244,250,.7); --ink-3:rgba(242,244,250,.48);
-  --glass-hi:rgba(255,255,255,.15); --glass-lo:rgba(255,255,255,.05); --glass-solid:rgba(22,26,42,.94);
-  --rim:rgba(255,255,255,.38); --edge:rgba(255,255,255,.14); --sheen:rgba(255,255,255,.2); --inner-glow:rgba(255,255,255,.08);
-  --shade:rgba(0,0,0,.55); --shade-soft:rgba(0,0,0,.3);
-  --pill:rgba(255,255,255,.08); --pill-hover:rgba(255,255,255,.14); --track:rgba(255,255,255,.12);
-  --accent:#5E54FF; --accent-2:#2F74E8; --accent-glow:rgba(94,84,255,.5); --focus:#7DB4FF; --danger:#FF7A95;
-}
-
-*,*::before,*::after{box-sizing:border-box;}
-[hidden]{display:none !important;}
-html{height:100%; background:var(--bg); -webkit-text-size-adjust:100%; scroll-padding-top:env(safe-area-inset-top,0px);}
-body{
-  margin:0; min-height:100%; background:var(--bg); color:var(--ink);
-  font-family:-apple-system, "SF Pro Display", "SF Pro Text", "Plus Jakarta Sans", system-ui, "Segoe UI", Roboto, sans-serif;
-  font-size:1rem; line-height:1.5;
-  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+*,*::before,*::after { box-sizing:border-box; }
+[hidden] { display:none!important; }
+html { height:100%; background:var(--bg); -webkit-text-size-adjust:100%; }
+body {
+  margin:0; min-width:240px; min-height:100%; color:var(--ink); background:var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
   -webkit-tap-highlight-color:transparent;
 }
-button{font:inherit; color:inherit;}
-:focus-visible{outline:3px solid var(--focus); outline-offset:3px;}
-[tabindex="-1"]:focus{outline:none;}
-
-/* The world behind the glass: coins drifting into cards and phones */
-.world{position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none;}
-.world > span{position:absolute; animation:float-in 1.5s var(--ease-out) both; animation-delay:var(--d,0s); transform:rotate(var(--rot,0deg));}
-@keyframes float-in{
-  from{opacity:0; transform:translateY(46px) scale(.88) rotate(var(--rot,0deg));}
-  to{opacity:1; transform:rotate(var(--rot,0deg));}
+button,textarea { font:inherit; color:inherit; }
+button { cursor:pointer; touch-action:manipulation; }
+button:disabled { cursor:not-allowed; }
+button,textarea { -webkit-appearance:none; appearance:none; }
+:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+[tabindex="-1"]:focus { outline:none; }
+svg { display:block; width:24px; height:24px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+/* A soft, sculpted wallpaper; all shapes are CSS, so the page also works offline. */
+.wallpaper { position:fixed; inset:0; overflow:hidden; pointer-events:none; isolation:isolate; }
+.mesh { position:absolute; inset:0; background:
+  radial-gradient(ellipse at 6% 9%,#fff3df 0,transparent 44%),
+  radial-gradient(ellipse at 86% 10%,#bfc8fc 0,transparent 47%),
+  radial-gradient(ellipse at 48% 98%,#afbdec 0,transparent 55%),
+  linear-gradient(135deg,#e7e6f5,#d9e5f1 60%,#b5c5ea); }
+.ribbon { position:absolute; width:125vw; height:90vh; min-height:480px; border-radius:48% 52% 36% 64% / 48% 62% 38% 52%; transform:rotate(-27deg); }
+.ribbon-one { left:-34vw; top:54%; background:linear-gradient(155deg,rgba(255,255,255,.86),rgba(223,215,254,.44) 35%,rgba(142,157,234,.57) 62%,rgba(133,178,225,.48)); box-shadow:inset 0 3px 3px rgba(255,255,255,.72),0 -22px 75px rgba(142,144,201,.12); }
+.ribbon-two { left:40%; top:28%; width:100vw; background:linear-gradient(166deg,rgba(245,235,255,.6),rgba(130,155,230,.5) 50%,rgba(215,230,254,.68)); box-shadow:inset 0 2px 4px rgba(255,255,255,.82),0 -30px 80px rgba(104,127,193,.1); }
+.wallpaper::after { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 48% 38%,rgba(255,255,255,.3),transparent 65%); }
+[data-theme="dark"] .mesh { background:radial-gradient(ellipse at 0 0,#3c3151,transparent 50%),radial-gradient(ellipse at 92% 6%,#343e70,transparent 50%),linear-gradient(145deg,#1c2034,#151e33 75%); }
+[data-theme="dark"] .ribbon { opacity:.18; }
+[data-theme="dark"] .wallpaper::after { opacity:.1; }
+/* One viewport, with the survey's content as the scroll container. */
+.app {
+  position:relative; z-index:1; width:min(1180px,100%); margin:auto;
+  height:100vh; height:100svh; height:100dvh; min-height:360px; max-height:1040px;
+  padding:max(24px,env(safe-area-inset-top)) max(32px,env(safe-area-inset-right)) max(16px,env(safe-area-inset-bottom)) max(32px,env(safe-area-inset-left));
+  display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:24px;
 }
-.coin{
-  border-radius:50%; aspect-ratio:1;
-  background:
-    radial-gradient(circle, transparent 0 57%, rgba(255,255,255,.5) 58% 61%, transparent 62%),
-    radial-gradient(circle at 32% 26%, var(--hi), var(--base) 56%, var(--lo) 100%);
-  box-shadow:inset -14px -18px 44px rgba(0,0,0,.12), inset 12px 14px 32px rgba(255,255,255,.35);
+.masthead { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.brand { display:flex; align-items:center; gap:10px; }
+.brand-mark { width:36px; height:36px; display:grid; place-items:center; border-radius:12px; background:rgba(255,255,255,.37); border:1px solid var(--edge); box-shadow:inset 0 1px 1px var(--rim); }
+.brand-mark svg { width:24px; height:24px; color:var(--accent); }
+.brand-name { font-size:1.1rem; font-weight:750; letter-spacing:-.04em; line-height:1.2; }
+.brand-name small { display:block; font-size:.6rem; font-weight:650; color:var(--muted); letter-spacing:.15em; line-height:1.8; text-transform:uppercase; }
+.top-tools { display:flex; align-items:center; gap:14px; }
+.project { font-size:.6875rem; letter-spacing:.12em; color:var(--muted); font-weight:650; }
+.icon-btn { width:42px; height:42px; flex:none; display:grid; place-items:center; border-radius:50%; border:1px solid var(--edge); background:var(--surface); box-shadow:inset 0 1px 1px var(--rim); transition:background .2s,transform .2s; }
+.icon-btn svg { width:19px; height:19px; }
+.icon-btn:active { transform:scale(.94); }
+.layout { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); align-items:center; gap:clamp(32px,5vw,76px); min-height:0; }
+.intro { align-self:center; padding-bottom:20px; }
+.eyebrow { display:flex; align-items:center; gap:8px; font-size:.625rem; font-weight:750; letter-spacing:.15em; text-transform:uppercase; color:var(--muted); }
+.eyebrow .dot { width:6px; height:6px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--selected); }
+.intro h2 { font-size:clamp(2.5rem,4.4vw,3.75rem); font-weight:650; letter-spacing:-.065em; line-height:1.045; margin:24px 0 20px; }
+.intro h2 span { color:var(--accent); }
+.intro-copy { max-width:29ch; font-size:1rem; color:var(--muted); line-height:1.7; margin:0; }
+/* A small glass sculpture, separate from the interactive survey. */
+.sculpture { position:relative; width:260px; height:180px; margin:36px 0 20px; }
+.halo { position:absolute; width:134px; height:134px; border:24px solid rgba(255,255,255,.27); border-radius:50%; box-shadow:inset 1px 2px 3px var(--rim),1px 2px 4px var(--rim),0 18px 40px var(--shadow); transform:rotate(-18deg); left:2px; top:18px; }
+.pass { position:absolute; width:174px; height:112px; border-radius:24px; left:61px; top:38px; transform:rotate(-12deg); padding:18px; background:linear-gradient(130deg,rgba(255,255,255,.66),rgba(255,255,255,.1)); border:1px solid var(--edge); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:inset 0 1px 2px var(--rim),0 25px 35px -15px var(--shadow); }
+.pass svg { color:var(--accent); width:31px; height:31px; }
+.pass-lines { display:flex; gap:6px; margin-top:19px; }
+.pass-lines i { height:4px; width:20px; border-radius:4px; background:var(--muted); opacity:.38; }
+.pass-lines i:last-child { width:12px; }
+.spark { position:absolute; width:43px; height:43px; border-radius:50%; right:8px; top:16px; display:grid; place-items:center; color:#fff; background:linear-gradient(135deg,#9488ff,#6357d6); border:1px solid rgba(255,255,255,.65); box-shadow:inset 0 2px 4px rgba(255,255,255,.5),0 8px 24px rgba(96,78,186,.23); }
+.spark svg { width:20px; height:20px; }
+.intro-foot { display:flex; align-items:center; gap:9px; font-size:.75rem; color:var(--muted); }
+.intro-foot svg { width:15px; height:15px; }
+/* Layered tint, a thin refractive rim and a restrained moving highlight. */
+.glass { background:linear-gradient(138deg,var(--glass),var(--glass-end)); backdrop-filter:blur(30px) saturate(155%); -webkit-backdrop-filter:blur(30px) saturate(155%); border:1px solid var(--edge); box-shadow:inset 0 1px 1px var(--rim),inset 1px 0 1px rgba(255,255,255,.2),inset 0 -1px 2px rgba(255,255,255,.19),0 30px 70px -22px var(--shadow),0 4px 14px rgba(70,74,126,.04); }
+.sheet { position:relative; isolation:isolate; border-radius:var(--radius); height:100%; max-height:704px; min-height:0; overflow:hidden; display:flex; flex-direction:column; padding:clamp(20px,2.8vw,32px); }
+.sheet::before { content:""; pointer-events:none; position:absolute; inset:0; z-index:-1; border-radius:inherit; background:radial-gradient(90% 60% at var(--mx,10%) var(--my,0%),rgba(255,255,255,.3),transparent 70%); }
+.sheet::after { content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit; border:1px solid transparent; background:linear-gradient(140deg,var(--rim),transparent 38%,transparent 66%,var(--edge)) border-box; -webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0); -webkit-mask-composite:xor; mask-composite:exclude; }
+.panel-top { flex:none; height:42px; margin-bottom:24px; display:flex; align-items:center; gap:12px; }
+.panel-label { font-size:.625rem; letter-spacing:.13em; font-weight:750; color:var(--muted); text-transform:uppercase; }
+.panel-label .tiny { display:inline-block; width:5px; height:5px; background:var(--green); border-radius:50%; margin-right:8px; vertical-align:2px; }
+.back { width:36px; height:36px; }
+.progress-wrap { flex:1; min-width:0; }
+.progress-caption { display:flex; justify-content:space-between; font-size:.6875rem; color:var(--muted); font-weight:600; margin-bottom:7px; }
+.track { height:4px; background:var(--line); border-radius:10px; overflow:hidden; }
+.fill { width:0; height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--accent),#9990fa); transition:width .4s var(--ease); }
+#stage { min-height:0; flex:1; }
+.screen { display:flex; flex-direction:column; height:100%; min-height:0; }
+.scrollarea { flex:1; min-height:0; overflow:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:rgba(100,104,153,.38) transparent; padding:4px 6px 10px; margin:0 -6px; scroll-padding-block:8px; }
+.scrollarea::-webkit-scrollbar { width:4px; }
+.scrollarea::-webkit-scrollbar-thumb { background:rgba(100,104,153,.38); border-radius:10px; }
+h1,h2,p { overflow-wrap:anywhere; }
+h1 { font-size:clamp(2.2rem,4.25vw,3.35rem); font-weight:660; line-height:1.03; letter-spacing:-.06em; margin:0; }
+.welcome-title span { color:var(--accent); }
+.lede { margin:17px 0 0; color:var(--muted); font-size:.9375rem; line-height:1.65; max-width:39ch; }
+.meta-pills { display:flex; flex-wrap:wrap; gap:8px; margin:21px 0 27px; }
+.meta-pill { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border:1px solid var(--edge); border-radius:99px; background:var(--surface); color:var(--muted); font-size:.6875rem; font-weight:600; }
+.meta-pill svg { width:12px; height:12px; }
+.ask { margin:0 0 11px; font-size:.8125rem; font-weight:650; }
+.roles { display:grid; gap:10px; }
+.role { display:flex; align-items:center; gap:13px; width:100%; padding:15px; min-height:80px; border-radius:21px; border:1px solid var(--edge); background:var(--surface); box-shadow:inset 0 1px 0 var(--rim),0 5px 15px -10px var(--shadow); text-align:left; transition:background .2s,transform .25s var(--ease); }
+.badge { flex:none; width:43px; height:43px; border-radius:14px; display:grid; place-items:center; background:rgba(112,96,220,.1); color:var(--accent); border:1px solid rgba(144,121,232,.18); }
+.badge.vendor { background:rgba(148,97,42,.08); color:#8b6039; border-color:rgba(148,97,42,.17); }
+[data-theme="dark"] .badge.vendor { color:#e5bc8e; }
+.role-text { flex:1; min-width:0; }
+.role-title { display:block; font-size:.9375rem; font-weight:680; letter-spacing:-.02em; }
+.role-sub { display:block; font-size:.71875rem; color:var(--muted); margin-top:2px; }
+.chev { flex:none; width:17px; height:17px; color:var(--quiet); }
+.fine { color:var(--quiet); font-size:.6875rem; line-height:1.65; margin:18px 0 0; }
+.privacy-note { display:flex; align-items:flex-start; gap:7px; padding-top:14px; border-top:1px solid var(--line); }
+.privacy-note svg { flex:none; width:12px; height:12px; margin-top:3px; }
+.question-title { font-size:clamp(1.35rem,2.3vw,1.85rem); font-weight:650; letter-spacing:-.038em; line-height:1.22; margin:0; text-wrap:pretty; }
+.hint { color:var(--muted); font-size:.78125rem; margin:10px 0 0; }
+.opts { display:grid; gap:9px; margin-top:23px; padding:3px; }
+.opt { position:relative; display:flex; align-items:center; gap:12px; width:100%; min-height:54px; padding:13px 14px; border:1px solid var(--edge); border-radius:17px; text-align:left; background:var(--surface); box-shadow:inset 0 1px 0 var(--rim); transition:background .18s,border-color .18s,transform .18s; font-size:.875rem; line-height:1.4; font-weight:560; }
+.opt-label { min-width:0; overflow-wrap:anywhere; }
+.opt[aria-checked="true"] { background:var(--selected); border-color:var(--accent); box-shadow:inset 0 1px 0 var(--rim),0 0 0 .5px var(--accent); }
+.mark { width:20px; height:20px; border-radius:50%; border:1.5px solid var(--quiet); flex:none; display:grid; place-items:center; }
+.opt[role="checkbox"] .mark { border-radius:6px; }
+.mark svg { width:12px; height:12px; stroke-width:2.6; opacity:0; transform:scale(.5); transition:opacity .18s,transform .18s; }
+.opt[aria-checked="true"] .mark { background:var(--accent); border-color:var(--accent); color:#fff; }
+.opt[aria-checked="true"] .mark svg { opacity:1; transform:scale(1); }
+.scale { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin:32px 3px 0; }
+.scale .opt { border-radius:18px; aspect-ratio:1; padding:0; min-height:44px; justify-content:center; font-size:1.25rem; }
+.scale-labels { display:flex; justify-content:space-between; gap:18px; margin-top:12px; font-size:.6875rem; color:var(--muted); }
+.scale-labels span { max-width:45%; }
+.scale-labels span:last-child { text-align:right; }
+.field { width:100%; min-height:140px; height:clamp(140px,24vh,220px); max-height:300px; resize:none; display:block; margin:24px 0 0; padding:16px; background:var(--surface); border:1px solid var(--edge); border-radius:18px; box-shadow:inset 0 2px 8px rgba(50,65,111,.05); font-size:1rem; line-height:1.6; }
+.field::placeholder { color:var(--quiet); }
+.text-count { margin:7px 2px 0; color:var(--muted); font-size:.6875rem; text-align:right; }
+.actions { flex:none; padding-top:15px; margin-top:2px; border-top:1px solid var(--line); }
+.action-note { display:flex; justify-content:space-between; align-items:center; gap:8px; font-size:.6875rem; color:var(--muted); min-height:18px; margin-bottom:10px; }
+.scroll-cue { font-size:.625rem; color:var(--accent); white-space:nowrap; }
+.btn { display:flex; align-items:center; justify-content:center; gap:9px; min-height:52px; width:100%; border-radius:17px; font-weight:650; font-size:.875rem; letter-spacing:-.01em; border:0; transition:opacity .2s,transform .2s,filter .2s; padding:12px 16px; }
+.btn-primary { color:#fff; background:linear-gradient(115deg,#5b50df,#7765e6); box-shadow:inset 0 1px 1px rgba(255,255,255,.5),0 8px 18px -9px rgba(75,62,177,.55); }
+.btn-primary svg { width:17px; height:17px; }
+.btn:disabled { opacity:.4; box-shadow:none; }
+.btn:active:not(:disabled),.role:active { transform:scale(.984); }
+.btn-link { color:var(--muted); background:transparent; font-size:.75rem; min-height:44px; margin-top:3px; font-weight:550; }
+.error { color:var(--danger); font-size:.75rem; line-height:1.5; max-height:74px; overflow:auto; margin:0 0 12px; }
+.orb { display:grid; place-items:center; width:68px; height:68px; margin:20px 0 26px; border-radius:23px; background:linear-gradient(135deg,rgba(102,200,169,.22),rgba(86,173,198,.15)); border:1px solid var(--edge); box-shadow:inset 0 1px 1px var(--rim); color:var(--green); }
+.orb svg { width:30px; height:30px; }
+.receipt { margin:26px 0 0; padding:14px; border-radius:16px; background:var(--surface); font-size:.75rem; color:var(--muted); }
+.receipt strong { display:block; color:var(--ink); font-size:.8125rem; margin-bottom:4px; }
+.spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.page-foot { display:flex; align-items:center; justify-content:space-between; gap:12px; font-size:.625rem; color:var(--muted); letter-spacing:.01em; }
+.foot-left { display:flex; align-items:center; gap:6px; }
+.page-foot svg { width:12px; height:12px; }
+.preview-chip { color:var(--accent); font-weight:650; }
+@media (hover:hover) { .opt:hover,.role:hover,.icon-btn:hover { background:var(--hover); } .opt[aria-checked="true"]:hover { background:var(--selected); } .btn-primary:hover:not(:disabled) { filter:brightness(1.07); } }
+@media (min-width:1600px) { .app { padding-top:36px; } }
+@media (max-width:900px) {
+  .app { width:min(650px,100%); padding-inline:24px; gap:20px; }
+  .layout { display:flex; justify-content:center; }
+  .intro { display:none; }
+  .sheet { width:100%; max-height:780px; padding:28px; }
+  h1 { font-size:clamp(2.25rem,7vw,3.2rem); }
+  .question-title { font-size:clamp(1.35rem,4.7vw,1.9rem); }
 }
-.card{
-  border-radius:9% / 14%; aspect-ratio:1.586;
-  background:linear-gradient(135deg, var(--hi), var(--base) 58%, var(--lo));
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.3), inset 0 18px 40px rgba(255,255,255,.18);
+@media (max-width:480px) {
+  :root { --radius:28px; }
+  .app { padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left)); gap:14px; }
+  .sheet { padding:21px; }
+  .project { display:none; }
+  .panel-top { margin-bottom:18px; height:36px; }
+  .meta-pills { margin:18px 0 23px; }
+  .role { min-height:77px; padding:13px; }
+  .role-sub { font-size:.6875rem; }
+  .page-foot { font-size:.5625rem; gap:6px; }
+  .opts { margin-top:20px; }
+  .scale { gap:8px; }
+  .scale .opt { border-radius:14px; }
 }
-.card::before{
-  content:""; position:absolute; left:9%; top:36%; width:13%; aspect-ratio:1.3; border-radius:18%;
-  background:linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,255,255,.25));
+@media (max-height:700px) {
+  .app { gap:12px; padding-top:max(12px,env(safe-area-inset-top)); padding-bottom:max(10px,env(safe-area-inset-bottom)); }
+  .sheet { padding-block:19px; }
+  .panel-top { margin-bottom:13px; }
+  .meta-pills { margin-block:15px 19px; }
+  .welcome-title { font-size:clamp(2rem,5vw,2.7rem); }
+  .intro .sculpture { height:135px; margin-block:15px; }
+  .intro h2 { font-size:2.7rem; }
+  .privacy-note { margin-top:12px; padding-top:11px; }
 }
-.c1{--hi:#FFC08F; --base:var(--tangerine); --lo:#E4541C; width:clamp(230px,64vw,460px); top:-7vh; left:-17vw; --d:.05s;}
-.c2{--hi:#8AF0E3; --base:var(--teal); --lo:#0B8F84; width:clamp(190px,48vw,360px); bottom:-9vh; left:-12vw; --d:.2s;}
-.c3{--hi:#FFA3C8; --base:var(--pink); --lo:#D62C74; width:clamp(90px,22vw,160px); top:13vh; right:6vw; --d:.3s;}
-.k1{--hi:#A597FF; --base:var(--violet); --lo:#3F2FD6; width:clamp(250px,72vw,540px); top:34vh; right:-30vw; --rot:-16deg; --d:.12s;}
-.k2{--hi:#9ACBFF; --base:var(--sky); --lo:#1C6FD6; width:clamp(140px,38vw,270px); bottom:5vh; right:-7vw; --rot:12deg; --d:.26s;}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .world{opacity:.82;} }
-:root[data-theme="dark"] .world{opacity:.82;}
-
-/* Layout */
-.app{
-  position:relative; z-index:1;
-  width:min(560px, 100%); margin:0 auto;
-  padding:clamp(16px, 8vh, 88px) max(16px, env(safe-area-inset-right,0px)) 40px max(16px, env(safe-area-inset-left,0px));
-  display:flex; flex-direction:column; gap:12px;
+@media (max-height:480px) {
+  .app { gap:8px; padding:8px max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left)); }
+  .masthead { height:34px; } .brand-mark { width:30px; height:30px; border-radius:10px; }
+  .top-tools .icon-btn { width:32px; height:32px; }
+  .sheet { padding:14px 20px; }
+  .panel-top { margin-bottom:7px; height:30px; }
+  .back { width:30px; height:30px; }
+  .actions { padding-top:8px; }
+  .action-note { margin-bottom:6px; }
+  .btn { min-height:44px; padding:8px 14px; }
+  .privacy-note { padding-top:7px; margin-top:8px; font-size:.625rem; }
+  .intro .sculpture { display:none; }
 }
-
-/* Liquid glass material */
-.glass{
-  position:relative; isolation:isolate; border:0;
-  background:linear-gradient(160deg, var(--glass-hi), var(--glass-lo));
-  -webkit-backdrop-filter:blur(20px) saturate(190%);
-  backdrop-filter:blur(20px) saturate(190%);
-  box-shadow:
-    inset 0 1px 0 0 var(--rim),
-    inset 0 -1px 1px 0 rgba(255,255,255,.12),
-    inset 0 0 26px -8px var(--inner-glow),
-    0 1px 2px var(--shade-soft),
-    0 22px 44px -18px var(--shade);
-}
-.glass::before{
-  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:-1;
-  background:radial-gradient(130% 85% at var(--mx,16%) var(--my,-12%), var(--sheen), transparent 46%);
-}
-.glass::after{
-  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; padding:1px;
-  background:linear-gradient(150deg, rgba(255,255,255,.95), rgba(255,255,255,.14) 32%, rgba(255,255,255,0) 55%, rgba(255,255,255,.5));
-  -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor; mask-composite:exclude;
-  opacity:.9;
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
-  .glass{background:var(--glass-solid);}
-}
-
-.sheet{
-  border-radius:34px; overflow:hidden;
-  padding:clamp(24px, 6.5vw, 36px);
-  animation:rise .95s var(--spring) .1s both;
-}
-@keyframes rise{from{opacity:0; transform:translateY(22px) scale(.97);} to{opacity:1; transform:none;}}
-
-/* Top bar */
-.topbar{display:flex; align-items:center; gap:10px;}
-.icon-btn{
-  width:50px; height:50px; flex:none; border-radius:50%;
-  display:grid; place-items:center; cursor:pointer; color:var(--ink);
-  transition:transform .5s var(--spring);
-}
-.icon-btn:active{transform:scale(.9);}
-.icon-btn svg{width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round;}
-.progress{flex:1; height:50px; border-radius:999px; display:flex; align-items:center; gap:14px; padding:0 20px;}
-.track{flex:1; height:8px; border-radius:99px; background:var(--track); overflow:hidden;}
-.fill{
-  height:100%; width:0; border-radius:inherit;
-  background:linear-gradient(90deg, var(--tangerine), var(--pink) 45%, var(--accent));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
-  transition:width .75s var(--spring);
-}
-.count{font-size:.875rem; font-weight:600; color:var(--ink-2); font-variant-numeric:tabular-nums; white-space:nowrap;}
-
-/* Welcome */
-.glyph{width:64px; height:64px; margin-bottom:22px;}
-.glyph svg{display:block; width:100%; height:100%; overflow:visible; filter:drop-shadow(0 10px 16px var(--shade));}
-h1{margin:0; font-size:clamp(2.15rem, 8.6vw, 3rem); line-height:1.02; letter-spacing:-.045em; font-weight:800; text-wrap:balance;}
-.lede{margin:14px 0 0; font-size:1.0625rem; line-height:1.5; color:var(--ink-2); max-width:38ch;}
-.ask{margin:30px 0 0; font-size:1.0625rem; font-weight:700; letter-spacing:-.015em;}
-.roles{display:grid; gap:12px; margin-top:12px;}
-.role{
-  appearance:none; border:0; cursor:pointer; text-align:left; position:relative; overflow:hidden; isolation:isolate;
-  display:flex; align-items:center; gap:16px; padding:16px;
-  border-radius:26px; background:var(--pill);
-  box-shadow:inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--edge), 0 1px 2px var(--shade-soft), 0 12px 24px -16px var(--shade);
-  transition:transform .5s var(--spring), background-color .25s;
-}
-.role::before{
-  content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
-  background:radial-gradient(120% 120% at var(--mx,20%) var(--my,0%), var(--sheen), transparent 50%);
-  opacity:.8;
-}
-@media (hover:hover){ .role:hover{background:var(--pill-hover);} }
-.role:active{transform:scale(.975);}
-.badge{
-  width:54px; height:54px; flex:none; border-radius:17px; display:grid; place-items:center; color:#fff;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.65), inset 0 -5px 12px rgba(0,0,0,.14), 0 10px 20px -10px var(--glow);
-}
-.badge svg{width:27px; height:27px; fill:none; stroke:currentColor; stroke-width:1.9; stroke-linecap:round; stroke-linejoin:round;}
-.badge.student{background:linear-gradient(145deg, #9C8DFF, var(--violet) 55%, #4232DA); --glow:rgba(107,91,255,.6);}
-.badge.vendor{background:linear-gradient(145deg, #FFB47A, var(--tangerine) 55%, #E3571D); --glow:rgba(255,138,61,.6);}
-.role-text{flex:1; min-width:0;}
-.role-title{display:block; font-size:1.125rem; font-weight:700; letter-spacing:-.02em; line-height:1.25;}
-.role-sub{display:block; margin-top:2px; font-size:.9375rem; color:var(--ink-2); line-height:1.35;}
-.chev{width:20px; height:20px; flex:none; color:var(--ink-3);}
-.chev svg{width:100%; height:100%; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round;}
-.fine{margin:20px 2px 0; font-size:.8125rem; line-height:1.45; color:var(--ink-3);}
-
-/* Questions */
-h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-spacing:-.032em; font-weight:700; text-wrap:balance;}
-.hint{margin:10px 0 0; font-size:.9375rem; color:var(--ink-2);}
-.opts{display:grid; gap:10px; margin-top:22px;}
-.opt{
-  appearance:none; border:0; cursor:pointer; text-align:left; position:relative;
-  display:flex; align-items:center; gap:14px;
-  min-height:56px; padding:14px 18px; border-radius:20px;
-  background:var(--pill); color:var(--ink);
-  box-shadow:inset 0 1px 0 var(--rim), inset 0 0 0 1px var(--edge), 0 1px 2px var(--shade-soft);
-  font-size:1rem; font-weight:600; letter-spacing:-.01em; line-height:1.3;
-  transition:background-color .25s, color .2s, box-shadow .3s, transform .5s var(--spring);
-}
-@media (hover:hover){ .opt:hover{background:var(--pill-hover);} }
-.opt:active{transform:scale(.97);}
-.opt[aria-checked="true"]{
-  background:linear-gradient(135deg, var(--accent), var(--accent-2));
-  color:#fff;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 0 0 1px rgba(255,255,255,.16), inset 0 -6px 14px rgba(0,0,0,.1), 0 12px 26px -12px var(--accent-glow);
-}
-.mark{
-  width:24px; height:24px; flex:none; border-radius:50%; display:grid; place-items:center;
-  box-shadow:inset 0 0 0 1.75px var(--ink-3);
-  transition:background-color .25s, box-shadow .25s, transform .5s var(--spring);
-}
-.opt[role="checkbox"] .mark{border-radius:8px;}
-.opt[aria-checked="true"] .mark{background:#fff; box-shadow:0 2px 6px rgba(0,0,0,.18);}
-.mark svg{width:14px; height:14px; fill:none; stroke:var(--accent); stroke-width:3; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:20; stroke-dashoffset:20; transition:stroke-dashoffset .35s var(--ease-out) .05s;}
-.opt[aria-checked="true"] .mark svg{stroke-dashoffset:0;}
-.opt-label{flex:1; min-width:0;}
-
-.scale{display:grid; grid-template-columns:repeat(5, 1fr); gap:clamp(8px, 2.6vw, 14px); margin-top:26px;}
-.scale .opt{justify-content:center; padding:0; min-height:0; aspect-ratio:1; border-radius:50%; font-size:1.3rem; font-weight:700; font-variant-numeric:tabular-nums;}
-.scale-labels{display:flex; justify-content:space-between; gap:16px; margin-top:12px; font-size:.8125rem; font-weight:600; color:var(--ink-2);}
-
-.field{
-  display:block; width:100%; min-height:136px; margin-top:22px; resize:vertical;
-  padding:16px 18px; border:0; border-radius:22px;
-  font:inherit; font-size:1rem; line-height:1.5; color:var(--ink);
-  background:var(--pill);
-  box-shadow:inset 0 2px 8px var(--shade-soft), inset 0 0 0 1px var(--edge);
-  transition:box-shadow .25s;
-}
-.field::placeholder{color:var(--ink-3);}
-.field:focus{outline:none; box-shadow:inset 0 2px 8px var(--shade-soft), inset 0 0 0 1px var(--edge), 0 0 0 3px color-mix(in srgb, var(--focus) 50%, transparent);}
-
-.btn{
-  appearance:none; border:0; cursor:pointer;
-  min-height:56px; padding:0 26px; border-radius:999px;
-  display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  font-size:1.0625rem; font-weight:700; letter-spacing:-.01em;
-  transition:transform .5s var(--spring), opacity .25s, box-shadow .3s;
-}
-.btn-primary{
-  width:100%; margin-top:22px; color:#fff;
-  background:linear-gradient(135deg, var(--accent), var(--accent-2));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.55), inset 0 -6px 14px rgba(0,0,0,.12), 0 14px 30px -14px var(--accent-glow);
-}
-.btn-primary:active{transform:scale(.97);}
-.btn-primary:disabled{opacity:.38; cursor:not-allowed; transform:none; box-shadow:inset 0 1px 0 rgba(255,255,255,.4);}
-.btn-primary[aria-busy="true"]{opacity:.85;}
-.btn-link{min-height:48px; padding:0 14px; background:none; color:var(--ink-2); font-size:.9375rem; font-weight:600; text-decoration:underline; text-underline-offset:3px;}
-.spinner{width:18px; height:18px; border-radius:50%; border:2.5px solid rgba(255,255,255,.4); border-top-color:#fff; animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.error{margin:14px 4px 0; color:var(--danger); font-size:.9375rem; font-weight:600; line-height:1.4;}
-
-/* Done */
-.orb{
-  width:84px; height:84px; margin-bottom:24px; border-radius:50%; display:grid; place-items:center;
-  background:linear-gradient(145deg, #5BE8D2, var(--teal) 55%, #0E9C90);
-  box-shadow:inset 0 2px 0 rgba(255,255,255,.65), inset 0 -8px 18px rgba(0,0,0,.14), 0 18px 36px -14px rgba(31,199,182,.65);
-  animation:pop .8s var(--spring) .05s both;
-}
-@keyframes pop{from{opacity:0; transform:scale(.4);} to{opacity:1; transform:none;}}
-.orb svg{width:42px; height:42px; fill:none; stroke:#fff; stroke-width:3.4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:40; stroke-dashoffset:40; animation:draw .55s var(--ease-out) .4s forwards;}
-@keyframes draw{to{stroke-dashoffset:0;}}
-.again{display:flex; justify-content:center; margin-top:10px;}
-
-.chip{margin:6px auto 0; max-width:440px; padding:12px 18px; border-radius:20px; font-size:.8125rem; line-height:1.45; color:var(--ink-2); text-align:center;}
-
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:.01ms !important; animation-delay:0s !important; transition-duration:.01ms !important;}
-}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .glass { background:var(--solid); } }
+@media (prefers-reduced-transparency:reduce) { .glass { background:var(--solid); backdrop-filter:none; -webkit-backdrop-filter:none; } .sheet::before { display:none; } }
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+@media (forced-colors:active) { .wallpaper,.sculpture { display:none; } .sheet,.role,.opt,.btn { border:1px solid ButtonText; } .opt[aria-checked="true"] { outline:2px solid Highlight; } }
 </style>
 </head>
 <body>
-<div class="world" aria-hidden="true">
-  <span class="coin c1"></span>
-  <span class="card k1"></span>
-  <span class="coin c3"></span>
-  <span class="coin c2"></span>
-  <span class="card k2"></span>
+<div class="wallpaper" aria-hidden="true"><div class="mesh"></div><div class="ribbon ribbon-one"></div><div class="ribbon ribbon-two"></div></div>
+<div class="app">
+  <header class="masthead">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 13a9 9 0 0 1 18 0M7 13a5 5 0 0 1 10 0M11 13a1 1 0 0 1 2 0"/></svg></span><div class="brand-name">campus<small>A little change.</small></div></div>
+    <div class="top-tools"><span class="project">CIT1142 · STUDENT RESEARCH</span><button class="icon-btn" type="button" id="theme" aria-label="Switch to dark appearance" title="Change appearance"></button></div>
+  </header>
+  <main class="layout">
+    <aside class="intro" aria-label="About the survey">
+      <div class="eyebrow"><span class="dot"></span> BUILT AROUND YOUR EVERYDAY</div>
+      <h2>A little change.<br>A <span>better campus.</span></h2>
+      <p class="intro-copy">Less time finding change.<br>More time for everything else.<br>Could digital payments help?</p>
+      <div class="sculpture" aria-hidden="true"><div class="halo"></div><div class="pass"><svg viewBox="0 0 24 24"><path d="M6 7a8 8 0 0 1 0 10M10 4a12 12 0 0 1 0 16M2 10a4 4 0 0 1 0 4"/></svg><div class="pass-lines"><i></i><i></i><i></i><i></i></div></div><div class="spark"><svg viewBox="0 0 24 24"><path d="m6 12 4 4 8-8"/></svg></div></div>
+      <div class="intro-foot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5 8 10 8 10s8-5 8-10V6z"/><path d="m8.5 11.5 2.5 2.5 4.5-5"/></svg>Your voice. Our next step.</div>
+    </aside>
+    <section class="sheet glass" id="sheet" aria-label="Campus payments survey">
+      <div class="panel-top" id="panel-top"><div class="panel-label" id="panel-label"><span class="tiny"></span> THE CAMPUS PAYMENTS SURVEY</div><button class="icon-btn back" type="button" id="back" aria-label="Previous question" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><div class="progress-wrap" id="progress-wrap" hidden><div class="progress-caption"><span id="role-label"></span><span id="count"></span></div><div class="track" id="progress" role="progressbar" aria-label="Survey progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="fill" id="fill"></div></div></div></div>
+      <div id="stage"></div>
+      <noscript><p>This survey needs JavaScript. Turn it on in your browser settings and reload this page.</p></noscript>
+    </section>
+  </main>
+  <footer class="page-foot"><span class="foot-left"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="10" width="12" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> No names. Just your perspective.</span><span id="foot-status">Made for our campus.</span></footer>
 </div>
-
-<main class="app">
-  <div class="topbar" id="topbar" hidden>
-    <button class="icon-btn glass" id="back" type="button" aria-label="Previous question" data-shine>
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
-    </button>
-    <div class="progress glass" id="progress" role="progressbar" aria-label="Survey progress" aria-valuemin="1" aria-valuemax="1" aria-valuenow="1" data-shine>
-      <div class="track"><div class="fill" id="fill"></div></div>
-      <span class="count" id="count"></span>
-    </div>
-  </div>
-
-  <section class="sheet glass" id="sheet" data-shine aria-live="polite">
-    <div id="stage"></div>
-  </section>
-
-  <p class="chip glass" id="chip" hidden>Preview mode: answers aren't saved yet. Add your Google Sheets link to this page to start collecting responses.</p>
-  <noscript><p class="chip">This survey needs JavaScript. Turn it on in your browser settings, then reload the page.</p></noscript>
-</main>
-
 <script>
 (() => {
   'use strict';
-
+  // Keep the /exec URL from your deployment. A Google Sheets sharing URL will not work.
   const RESPONSES_URL = 'https://script.google.com/macros/s/AKfycbyfIWmjGIAP2YCTEX-eixhCT1amNmrTTHBs1Hy-R7lbiOcObAOr-dRIfTF2kYwz0K8/exec';
-
-  const DONE_KEY = 'campus-cashless-survey-submitted';
-
+  const PREVIEW = !RESPONSES_URL || new URLSearchParams(location.search).get('preview') === '1';
+  const DONE_KEY = 'campus-cashless-survey-confirmed-v2';
+  const THEME_KEY = 'campus-theme';
   const SURVEYS = {
     student: [
       { id: 's_year', col: 'Year of study', type: 'single', title: 'What year are you in?',
@@ -394,444 +322,264 @@ h2{margin:0; font-size:clamp(1.45rem, 5.8vw, 1.9rem); line-height:1.17; letter-s
     ]
   };
 
-  const HINTS = { single: 'Choose one', multi: 'Choose all that apply', scale: 'Tap a number from 1 to 5', text: 'Optional' };
-
+  const $ = (s, root = document) => root.querySelector(s);
+  const storage = {
+    get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+    set(k,v) { try { localStorage.setItem(k,v); } catch (_) {} },
+    del(k) { try { localStorage.removeItem(k); } catch (_) {} }
+  };
+  const media = matchMedia('(prefers-color-scheme: dark)');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const icon = (paths) => `<svg viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
   const ICON = {
-    student: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 9.5 12 5l9.5 4.5L12 14z"/><path d="M6.5 11.7v4.1c0 1.3 2.5 2.9 5.5 2.9s5.5-1.6 5.5-2.9v-4.1"/><path d="M21.5 9.5v5"/></svg>',
-    vendor: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 11v8.5h15V11"/><path d="M3 10.2 5 4.5h14l2 5.7c0 1.4-1.2 2.3-2.6 2.3-1.3 0-2.4-.9-2.4-2.3 0 1.4-1.1 2.3-2.5 2.3h-1c-1.4 0-2.5-.9-2.5-2.3 0 1.4-1.1 2.3-2.4 2.3-1.4 0-2.6-.9-2.6-2.3z"/><path d="M10 19.5v-4.5h4v4.5"/></svg>',
-    chev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
-    check: '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>',
-    done: '<svg viewBox="0 0 40 40" aria-hidden="true"><path d="M10.5 20.5l6.5 6.5 12.5-14"/></svg>'
+    arrow:icon('<path d="M5 12h14m-5-5 5 5-5 5"/>'),
+    check:icon('<path d="m5 12 4 4L19 6"/>'),
+    student:icon('<path d="m2 9 10-5 10 5-10 5zM6 11v6c4 3 8 3 12 0v-6M22 9v7"/>'),
+    vendor:icon('<path d="M4 11v9h16v-9M3 10l2-6h14l2 6c0 3-4 3-4 0 0 3-5 3-5 0 0 3-5 3-5 0 0 3-4 3-4 0zM10 20v-5h4v5"/>'),
+    clock:icon('<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'),
+    lock:icon('<rect x="6" y="10" width="12" height="10" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'),
+    moon:icon('<path d="M20 14A8 8 0 0 1 10 4a8.5 8.5 0 1 0 10 10z"/>'),
+    sun:icon('<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/>'),
+    share:icon('<path d="M12 15V3m-4 4 4-4 4 4M6 10H4v11h16V10h-2"/>')
   };
-
-  // A coin that turns into a phone: the whole project in one small moment.
-  const SPL = 'calcMode="spline" keyTimes="0;1" keySplines="0.2 0.9 0.2 1" begin="0.55s" dur="0.8s" fill="freeze"';
-  const GLYPH = `
-<svg viewBox="0 0 64 64" aria-hidden="true">
-  <defs>
-    <linearGradient id="glyphShine" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#fff" stop-opacity=".6"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <rect x="8" y="8" width="48" height="48" rx="24" fill="#FF8A3D">
-    <animate attributeName="x" values="8;18" ${SPL}/><animate attributeName="y" values="8;4" ${SPL}/>
-    <animate attributeName="width" values="48;28" ${SPL}/><animate attributeName="height" values="48;56" ${SPL}/>
-    <animate attributeName="rx" values="24;8" ${SPL}/><animate attributeName="fill" values="#FF8A3D;#5B4BFF" ${SPL}/>
-  </rect>
-  <rect x="8" y="8" width="48" height="48" rx="24" fill="url(#glyphShine)">
-    <animate attributeName="x" values="8;18" ${SPL}/><animate attributeName="y" values="8;4" ${SPL}/>
-    <animate attributeName="width" values="48;28" ${SPL}/><animate attributeName="height" values="48;56" ${SPL}/>
-    <animate attributeName="rx" values="24;8" ${SPL}/>
-  </rect>
-  <g opacity="1">
-    <circle cx="32" cy="32" r="17" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="2"/>
-    <text x="32" y="39.5" text-anchor="middle" font-size="21" font-weight="800" fill="#fff" font-family="-apple-system, 'Plus Jakarta Sans', sans-serif">K</text>
-    <animate attributeName="opacity" values="1;0" begin="0.45s" dur="0.25s" fill="freeze"/>
-  </g>
-  <g opacity="0" fill="#fff">
-    <rect x="29" y="8" width="6" height="1.6" rx=".8" opacity=".7"/>
-    <rect x="23" y="20" width="5" height="5" rx="1"/><rect x="36" y="20" width="5" height="5" rx="1"/><rect x="23" y="33" width="5" height="5" rx="1"/>
-    <rect x="30" y="20" width="2" height="2"/><rect x="30" y="24" width="2" height="2"/><rect x="29.5" y="28.5" width="2" height="2"/>
-    <rect x="33" y="28.5" width="2" height="2"/><rect x="37" y="28.5" width="2" height="2"/><rect x="36" y="33" width="2" height="2"/>
-    <rect x="39" y="33" width="2" height="2"/><rect x="37.5" y="36" width="2" height="2"/><rect x="30" y="33" width="2" height="2"/>
-    <rect x="33" y="36" width="2" height="2"/><rect x="28" y="53" width="8" height="2" rx="1" opacity=".7"/>
-    <animate attributeName="opacity" values="0;1" begin="1.15s" dur="0.35s" fill="freeze"/>
-  </g>
-</svg>`;
-
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const hasLinear = window.CSS && CSS.supports && CSS.supports('transition-timing-function', 'linear(0, 1)');
-  const SPRING = hasLinear
-    ? 'linear(0, 0.0686, 0.228, 0.4224, 0.6133, 0.7779, 0.9058, 0.9952, 1.05, 1.0769, 1.0835, 1.0769, 1.0632, 1.0468, 1.031, 1.0175, 1.0071, 0.9999, 0.9955, 0.9935, 0.993, 0.9937, 0.9948, 0.9962, 0.9975, 0.9986, 1)'
-    : 'cubic-bezier(.34,1.35,.64,1)';
-  const SPRING_SOFT = hasLinear
-    ? 'linear(0, 0.0495, 0.1637, 0.3041, 0.4466, 0.5775, 0.69, 0.7818, 0.8536, 0.9075, 0.9465, 0.9734, 0.9911, 1.0019, 1.0079, 1.0105, 1.0111, 1.0104, 1.0091, 1.0075, 1.0059, 1.0045, 1.0033, 1.0023, 1.0015, 1.001, 1)'
-    : 'cubic-bezier(.2,.9,.3,1)';
-
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const wait = ms => new Promise(r => setTimeout(r, ms));
-  const store = {
-    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage unavailable */ } },
-    del(k) { try { localStorage.removeItem(k); } catch (e) { /* storage unavailable */ } }
-  };
-  const newId = () => (window.crypto && crypto.randomUUID)
-    ? crypto.randomUUID()
-    : Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
-
   function h(tag, props = {}, ...kids) {
     const el = document.createElement(tag);
-    for (const [k, v] of Object.entries(props)) {
+    for (const [k,v] of Object.entries(props)) {
       if (v == null || v === false) continue;
       if (k === 'class') el.className = v;
       else if (k === 'text') el.textContent = v;
-      else if (k === 'html') el.innerHTML = v; // static, trusted markup only
-      else el.setAttribute(k, v === true ? '' : v);
+      else if (k === 'html') el.innerHTML = v;
+      else el.setAttribute(k,v === true ? '' : String(v));
     }
-    for (const kid of kids.flat()) if (kid != null) el.append(kid);
+    for (const child of kids.flat()) if (child != null) el.append(child);
     return el;
   }
-
-  const state = { role: null, answers: {}, qid: null, responseId: null };
-  const visible = () => SURVEYS[state.role].filter(q => !q.showIf || q.showIf(state.answers));
-
-  /* ---------- Motion helpers ---------- */
-  function jelly(el) {
-    if (reduce) return;
-    el.animate(
-      [{ transform: 'scale(1)' }, { transform: 'scale(.95)', offset: .25 }, { transform: 'scale(1.025)', offset: .6 }, { transform: 'scale(1)' }],
-      { duration: 440, easing: 'ease-out' }
-    );
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    const dark = theme === 'dark';
+    $('#theme').innerHTML = dark ? ICON.sun : ICON.moon;
+    $('#theme').setAttribute('aria-label',`Switch to ${dark ? 'light' : 'dark'} appearance`);
+    $('#theme-colour').content = dark ? '#111629' : '#e6eafa';
   }
-
-  let busy = false;
-  async function go(build, dir = 1) {
-    if (busy) return;
-    busy = true;
-    const stage = $('#stage'), sheet = $('#sheet');
-    const old = stage.firstElementChild;
-    try {
-      const startH = sheet.offsetHeight;
-      if (old && !reduce) {
-        await old.animate(
-          [{ opacity: 1, transform: 'none', filter: 'blur(0px)' },
-           { opacity: 0, transform: `translateX(${-22 * dir}px) scale(.985)`, filter: 'blur(4px)' }],
-          { duration: 170, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' }
-        ).finished;
-      }
-      const next = build();
-      stage.replaceChildren(next);
-      if (old && !reduce) {
-        const endH = sheet.offsetHeight;
-        if (Math.abs(endH - startH) > 1) {
-          sheet.animate([{ height: `${startH}px` }, { height: `${endH}px` }], { duration: 620, easing: SPRING });
-        }
-        next.animate(
-          [{ opacity: 0, transform: `translateX(${26 * dir}px) scale(.985)`, filter: 'blur(4px)' },
-           { opacity: 1, transform: 'none', filter: 'blur(0px)' }],
-          { duration: 460, easing: SPRING_SOFT, fill: 'backwards' }
-        );
-      }
-      if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
-      const title = $('#title');
-      if (title) title.focus({ preventScroll: true });
-    } finally {
-      busy = false;
+  applyTheme(storage.get(THEME_KEY) || (media.matches ? 'dark' : 'light'));
+  $('#theme').addEventListener('click',() => {
+    const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    storage.set(THEME_KEY,theme); applyTheme(theme);
+  });
+  media.addEventListener('change',e => { if (!storage.get(THEME_KEY)) applyTheme(e.matches ? 'dark' : 'light'); });
+  const newId = () => typeof crypto.randomUUID === 'function' ? crypto.randomUUID() : `${Date.now().toString(36)}-${Array.from(crypto.getRandomValues(new Uint32Array(3)),n=>n.toString(36)).join('')}`;
+  const state = { role:null, qid:null, answers:{}, responseId:null, receipt:null };
+  const visible = () => (SURVEYS[state.role] || []).filter(q => !q.showIf || q.showIf(state.answers));
+  let sending = false;
+  let scrollObserver;
+  function monitorScroll() {
+    if (scrollObserver) scrollObserver.disconnect();
+    const scroller = $('.scrollarea');
+    const cue = $('#scroll-cue');
+    if (!scroller || !cue) return;
+    const update = () => { cue.hidden = scroller.scrollHeight - scroller.clientHeight - scroller.scrollTop < 12; };
+    scroller.addEventListener('scroll',update,{passive:true});
+    if (typeof ResizeObserver !== 'undefined') {
+      scrollObserver = new ResizeObserver(update);
+      scrollObserver.observe(scroller);
+      if (scroller.firstElementChild) scrollObserver.observe(scroller.firstElementChild);
     }
+    requestAnimationFrame(update);
   }
-
-  function showTopbar(show) {
-    const bar = $('#topbar');
-    if (show === !bar.hidden) return;
-    bar.hidden = !show;
-    if (show && !reduce) {
-      bar.animate([{ opacity: 0, transform: 'translateY(-10px) scale(.98)' }, { opacity: 1, transform: 'none' }], { duration: 520, easing: SPRING });
-    }
+  function show(screen,kind,focus = true) {
+    const question = kind === 'question';
+    $('#back').hidden = !question;
+    $('#progress-wrap').hidden = !question;
+    $('#panel-label').hidden = question;
+    $('#panel-label').innerHTML = `<span class="tiny"></span> ${kind === 'done' ? (PREVIEW ? 'PREVIEW COMPLETE' : 'RESPONSE RECEIVED') : 'THE CAMPUS PAYMENTS SURVEY'}`;
+    $('#stage').replaceChildren(screen);
+    if (!reduced.matches && screen.animate) screen.animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'none'}],{duration:250,easing:'cubic-bezier(.2,.8,.2,1)'});
+    monitorScroll();
+    if (focus) $('#title')?.focus({preventScroll:true});
   }
-
-  function updateProgress(n, total) {
-    $('#fill').style.width = `${(n / total) * 100}%`;
-    $('#count').textContent = `${n} of ${total}`;
-    const p = $('#progress');
-    p.setAttribute('aria-valuemax', String(total));
-    p.setAttribute('aria-valuenow', String(n));
-    p.setAttribute('aria-valuetext', `Question ${n} of ${total}`);
+  function primary(label,handler) {
+    const b = h('button',{class:'btn btn-primary',id:'primary',type:'button'},h('span',{class:'btn-label',text:label}),h('span',{class:'btn-icon',html:ICON.arrow}));
+    b.addEventListener('click',handler); return b;
   }
-
-  // Light follows your finger across the glass.
-  let shineFrame = 0, shineEvent = null;
-  function queueShine(e) { shineEvent = e; if (!shineFrame) shineFrame = requestAnimationFrame(applyShine); }
-  function applyShine() {
-    shineFrame = 0;
-    const e = shineEvent;
-    if (!e) return;
-    for (const el of document.querySelectorAll('[data-shine]')) {
-      const r = el.getBoundingClientRect();
-      if (!r.width || !r.height) continue;
-      el.style.setProperty('--mx', `${((e.clientX - r.left) / r.width) * 100}%`);
-      el.style.setProperty('--my', `${((e.clientY - r.top) / r.height) * 100}%`);
-    }
-  }
-  if (!reduce) {
-    document.addEventListener('pointermove', queueShine, { passive: true });
-    document.addEventListener('pointerdown', queueShine, { passive: true });
-  }
-
-  /* ---------- Screens ---------- */
-  function glyph() {
-    const wrap = h('div', { class: 'glyph', html: GLYPH });
-    if (reduce) {
-      wrap.querySelectorAll('animate').forEach(a => {
-        const values = a.getAttribute('values').split(';');
-        a.parentNode.setAttribute(a.getAttribute('attributeName'), values[values.length - 1]);
-        a.remove();
-      });
-    }
-    return wrap;
-  }
-
-  function renderWelcome() {
-    const roleButton = (role, title, sub) => {
-      const b = h('button', { class: 'role', type: 'button', 'data-shine': true },
-        h('span', { class: `badge ${role}`, html: ICON[role] }),
-        h('span', { class: 'role-text' },
-          h('span', { class: 'role-title', text: title }),
-          h('span', { class: 'role-sub', text: sub })),
-        h('span', { class: 'chev', html: ICON.chev }));
-      b.addEventListener('click', () => { jelly(b); chooseRole(role); });
-      return b;
+  function welcome(focus = true) {
+    const roleButton = (role,title,sub) => {
+      const b = h('button',{class:'role',type:'button'},
+        h('span',{class:`badge ${role}`,html:ICON[role]}),h('span',{class:'role-text'},h('span',{class:'role-title',text:title}),h('span',{class:'role-sub',text:sub})),
+        h('span',{class:'chev',html:ICON.arrow}));
+      b.addEventListener('click',()=>{
+        if (state.role !== role) { state.answers={}; state.responseId=newId(); }
+        state.role=role; state.qid=visible()[0].id; question();
+      }); return b;
     };
-    return h('div', { class: 'screen' },
-      glyph(),
-      h('h1', { id: 'title', tabindex: '-1', text: 'Should campus go cashless?' }),
-      h('p', { class: 'lede', text: "We're a CIT1142 student group researching digital payments for the campus vendors. It takes about 3 minutes." }),
-      h('p', { class: 'ask', id: 'ask', text: 'Which one are you?' }),
-      h('div', { class: 'roles', role: 'group', 'aria-labelledby': 'ask' },
-        roleButton('student', "I'm a student", 'I buy from the campus vendors'),
-        roleButton('vendor', "I'm a vendor", 'I sell food or goods on campus')),
-      h('p', { class: 'fine', text: "Your answers are anonymous. We don't ask for your name, and responses are only used for our class report." }));
+    const content = h('div',{class:'welcome-content'},
+      h('h1',{class:'welcome-title',id:'title',tabindex:'-1',html:'Should campus<br>go <span>cashless?</span>'}),
+      h('p',{class:'lede',text:"Help our CIT1142 student group understand how you pay on campus, and what could work better."}),
+      h('div',{class:'meta-pills'},h('span',{class:'meta-pill'},h('span',{html:ICON.clock}),'About 3 minutes'),h('span',{class:'meta-pill'},h('span',{html:ICON.lock}),'Anonymous')),
+      h('p',{class:'ask',id:'ask',text:'First, tell us a little about you.'}),
+      h('div',{class:'roles',role:'group','aria-labelledby':'ask'},roleButton('student',"I'm a student",'I buy from campus vendors'),roleButton('vendor',"I'm a vendor",'I sell food or goods on campus')));
+    show(h('div',{class:'screen welcome-screen'},h('div',{class:'scrollarea'},content),h('p',{class:'fine privacy-note'},h('span',{html:ICON.lock}),"We don't ask for your name. Your answers are only used for our class report.")),'welcome',focus);
   }
-
-  function chooseRole(role) {
-    if (busy) return;
-    if (state.role !== role) { state.answers = {}; state.responseId = newId(); }
-    state.role = role;
-    state.qid = visible()[0].id;
-    showTopbar(true);
-    go(renderQuestion, 1);
-  }
-
-  function primaryButton(label) {
-    return h('button', { class: 'btn btn-primary', type: 'button', id: 'primary' }, h('span', { class: 'btn-label', text: label }));
-  }
-  const errorSlot = () => h('p', { class: 'error', id: 'error', role: 'alert', hidden: true });
-
-  function arrowKeys(list) {
-    list.addEventListener('keydown', e => {
-      const keys = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 };
-      if (!(e.key in keys)) return;
-      const items = [...list.querySelectorAll('button')];
-      const i = items.indexOf(document.activeElement);
-      if (i < 0) return;
+  const validAnswer = q => q.type === 'text' || (q.type === 'multi' ? Array.isArray(state.answers[q.id]) && state.answers[q.id].length > 0 : state.answers[q.id] != null);
+  function radioKeys(group,buttons) {
+    group.addEventListener('keydown',e=>{
+      const i=buttons.indexOf(document.activeElement);
+      if(i<0) return;
+      let j;
+      if(['ArrowRight','ArrowDown'].includes(e.key)) j=(i+1)%buttons.length;
+      else if(['ArrowLeft','ArrowUp'].includes(e.key)) j=(i+buttons.length-1)%buttons.length;
+      else if(e.key==='Home') j=0;
+      else if(e.key==='End') j=buttons.length-1;
+      else return;
       e.preventDefault();
-      items[(i + keys[e.key] + items.length) % items.length].focus();
+      if(sending) return;
+      buttons[j].focus(); buttons[j].click();
     });
   }
-
-  function renderQuestion() {
-    const vis = visible();
-    let i = vis.findIndex(q => q.id === state.qid);
-    if (i < 0) { i = 0; state.qid = vis[0].id; }
-    const q = vis[i];
-    const isLast = i === vis.length - 1;
-    updateProgress(i + 1, vis.length);
-
-    const screen = h('div', { class: 'screen' },
-      h('h2', { id: 'title', tabindex: '-1', text: q.title }),
-      h('p', { class: 'hint', id: 'hint', text: HINTS[q.type] }));
-
-    if (q.type === 'single' || q.type === 'multi') screen.append(...renderChoices(q, isLast));
-    else if (q.type === 'scale') screen.append(...renderScale(q, isLast));
-    else screen.append(...renderText(q, isLast));
-    return screen;
-  }
-
-  function renderChoices(q, isLast) {
-    const multi = q.type === 'multi';
-    const autoAdvance = !multi && !isLast;
-    const list = h('div', { class: 'opts', role: multi ? 'group' : 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
-    const selected = () => multi ? new Set(state.answers[q.id] || []) : new Set(state.answers[q.id] ? [state.answers[q.id]] : []);
-    let cont = null;
-
-    const buttons = q.options.map(label => {
-      const b = h('button', { class: 'opt', type: 'button', role: multi ? 'checkbox' : 'radio', 'aria-checked': String(selected().has(label)) },
-        h('span', { class: 'mark', html: ICON.check }),
-        h('span', { class: 'opt-label', text: label }));
-      b.addEventListener('click', () => {
-        if (busy) return;
-        let sel = selected();
-        if (multi) {
-          if (sel.has(label)) sel.delete(label);
-          else {
-            if (q.exclusive && label === q.exclusive) sel = new Set();
-            else if (q.exclusive) sel.delete(q.exclusive);
-            sel.add(label);
-          }
-          state.answers[q.id] = q.options.filter(o => sel.has(o));
-        } else {
-          sel = new Set([label]);
-          state.answers[q.id] = label;
-        }
-        buttons.forEach((x, idx) => x.setAttribute('aria-checked', String(sel.has(q.options[idx]))));
-        jelly(b);
-        if (cont) cont.disabled = sel.size === 0;
-        if (autoAdvance) scheduleNext();
+  function question() {
+    const questions = visible();
+    const i = Math.max(0,questions.findIndex(q=>q.id===state.qid));
+    const q = questions[i]; state.qid=q.id;
+    const last = i === questions.length-1;
+    $('#role-label').textContent = state.role === 'student' ? 'Student perspective' : 'Vendor perspective';
+    $('#count').textContent = `${String(i+1).padStart(2,'0')} / ${questions.length}`;
+    $('#fill').style.width = `${((i+1)/questions.length)*100}%`;
+    $('#progress').setAttribute('aria-valuenow',String(Math.round((i+1)/questions.length*100)));
+    $('#progress').setAttribute('aria-valuetext',`Question ${i+1} of ${questions.length}`);
+    const hint = q.type === 'multi' ? 'Choose all that apply.' : q.type === 'scale' ? 'Choose a number from 1 to 5.' : q.type === 'text' ? 'Optional. A few words can make a difference.' : 'Choose one answer.';
+    const content = h('div',{class:'question-content'},h('h2',{class:'question-title',id:'title',tabindex:'-1',text:q.title}),h('p',{class:'hint',id:'hint',text:hint}));
+    const note = h('span',{id:'selection-note',text:q.type === 'text' ? 'Leave blank to skip' : 'Choose an answer to continue'});
+    const cont = primary(last ? (PREVIEW ? 'Finish preview' : 'Send answers') : 'Continue',next);
+    const update = () => {
+      cont.disabled = !validAnswer(q);
+      if(q.type !== 'text') note.textContent = q.type === 'multi' ? `${(state.answers[q.id] || []).length} selected` : validAnswer(q) ? 'Answer selected' : 'Choose an answer to continue';
+    };
+    if(q.type === 'single' || q.type === 'multi') {
+      const multi = q.type === 'multi';
+      const list = h('div',{class:'opts',role:multi?'group':'radiogroup','aria-labelledby':'title','aria-describedby':'hint'});
+      const chosen = label => multi ? (state.answers[q.id] || []).includes(label) : state.answers[q.id] === label;
+      const buttons = q.options.map(label=>{
+        const b=h('button',{class:'opt',type:'button',role:multi?'checkbox':'radio','aria-checked':String(chosen(label))},h('span',{class:'mark',html:ICON.check}),h('span',{class:'opt-label',text:label}));
+        b.addEventListener('click',()=>{
+          if(sending) return;
+          if(multi) {
+            let selected=new Set(state.answers[q.id] || []);
+            if(selected.has(label)) selected.delete(label);
+            else { if(label===q.exclusive) selected.clear(); else if(q.exclusive) selected.delete(q.exclusive); selected.add(label); }
+            state.answers[q.id]=q.options.filter(value=>selected.has(value));
+          } else state.answers[q.id]=label;
+          buttons.forEach((button,index)=>{ button.setAttribute('aria-checked',String(chosen(q.options[index]))); if(!multi) button.tabIndex=chosen(q.options[index])?0:-1; });
+          update();
+        }); return b;
       });
-      return b;
-    });
-    list.append(...buttons);
-    arrowKeys(list);
-    if (autoAdvance) return [list];
-
-    cont = primaryButton(isLast ? 'Send answers' : 'Continue');
-    cont.disabled = selected().size === 0;
-    cont.addEventListener('click', next);
-    return [list, cont, errorSlot()];
-  }
-
-  function renderScale(q, isLast) {
-    const row = h('div', { class: 'scale', role: 'radiogroup', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
-    let cont = null;
-    const buttons = [1, 2, 3, 4, 5].map(n => {
-      const label = n === 1 ? `1, ${q.low}` : n === 5 ? `5, ${q.high}` : String(n);
-      const b = h('button', { class: 'opt', type: 'button', role: 'radio', 'aria-checked': String(state.answers[q.id] === n), 'aria-label': label, text: String(n) });
-      b.addEventListener('click', () => {
-        if (busy) return;
-        state.answers[q.id] = n;
-        buttons.forEach((x, idx) => x.setAttribute('aria-checked', String(idx + 1 === n)));
-        jelly(b);
-        if (cont) cont.disabled = false;
-        else scheduleNext();
-      });
-      return b;
-    });
-    row.append(...buttons);
-    arrowKeys(row);
-    const labels = h('div', { class: 'scale-labels', 'aria-hidden': 'true' }, h('span', { text: q.low }), h('span', { text: q.high }));
-    if (!isLast) return [row, labels];
-    cont = primaryButton('Send answers');
-    cont.disabled = state.answers[q.id] == null;
-    cont.addEventListener('click', next);
-    return [row, labels, cont, errorSlot()];
-  }
-
-  function renderText(q, isLast) {
-    const field = h('textarea', { class: 'field', rows: '4', maxlength: '600', placeholder: q.placeholder || 'Type your answer', 'aria-labelledby': 'title', 'aria-describedby': 'hint' });
-    field.value = state.answers[q.id] || '';
-    field.addEventListener('input', () => { state.answers[q.id] = field.value; });
-    const cont = primaryButton(isLast ? 'Send answers' : 'Continue');
-    cont.addEventListener('click', next);
-    return [field, cont, errorSlot()];
-  }
-
-  function renderDone() {
-    const isVendor = state.role === 'vendor';
-    const share = primaryButton('Share the survey');
-    const shareLabel = $('.btn-label', share);
-    share.addEventListener('click', async () => {
-      const url = location.href.split('#')[0];
-      const data = { title: 'Should campus go cashless?', text: 'Take our 3-minute survey on digital payments for the campus vendors.', url };
-      try {
-        if (navigator.share) { await navigator.share(data); return; }
-        await navigator.clipboard.writeText(url);
-        shareLabel.textContent = 'Link copied';
-      } catch (e) {
-        if (e && e.name === 'AbortError') return;
-        shareLabel.textContent = 'Copy the link from your address bar';
+      if(!multi) {
+        const selectedIndex = Math.max(0,q.options.indexOf(state.answers[q.id]));
+        buttons.forEach((b,n)=>b.tabIndex=n===selectedIndex?0:-1);
+        radioKeys(list,buttons);
       }
-    });
-    const again = h('button', { class: 'btn btn-link', type: 'button', text: 'Start a new response' });
-    again.addEventListener('click', () => {
-      store.del(DONE_KEY);
-      state.role = null; state.answers = {}; state.qid = null;
-      go(renderWelcome, -1);
-    });
-    return h('div', { class: 'screen' },
-      h('div', { class: 'orb', html: ICON.done }),
-      h('h1', { id: 'title', tabindex: '-1', text: 'Your answers are in' }),
-      h('p', { class: 'lede', text: isVendor
-        ? 'Thank you for your time. Your answers help us design a payment system that works for vendors, not just students.'
-        : 'Thank you. Know other students who buy from the vendors? Send them the survey too.' }),
-      share,
-      h('div', { class: 'again' }, again));
+      list.append(...buttons); content.append(list);
+    } else if(q.type === 'scale') {
+      const list=h('div',{class:'scale',role:'radiogroup','aria-labelledby':'title','aria-describedby':'hint'});
+      const buttons=[1,2,3,4,5].map(n=>{
+        const b=h('button',{class:'opt',type:'button',role:'radio','aria-checked':String(state.answers[q.id]===n),'aria-label':`${n}${n===1?', '+q.low:n===5?', '+q.high:''}`,text:n});
+        b.addEventListener('click',()=>{ if(sending) return; state.answers[q.id]=n; buttons.forEach((btn,j)=>{btn.setAttribute('aria-checked',String(j+1===n)); btn.tabIndex=j+1===n?0:-1;}); update(); });
+        b.tabIndex=n===(state.answers[q.id] || 1)?0:-1; return b;
+      });
+      list.append(...buttons); radioKeys(list,buttons);
+      content.append(list,h('div',{class:'scale-labels','aria-hidden':'true'},h('span',{text:q.low}),h('span',{text:q.high})));
+    } else {
+      const field=h('textarea',{class:'field',maxlength:'600',id:'feedback',placeholder:'Your thoughts, in your own words…','aria-labelledby':'title','aria-describedby':'hint'});
+      field.value=state.answers[q.id] || '';
+      const count=h('p',{class:'text-count',text:`${field.value.length} / 600`});
+      field.addEventListener('input',()=>{state.answers[q.id]=field.value; count.textContent=`${field.value.length} / 600`;});
+      content.append(field,count);
+    }
+    update();
+    const cue=h('span',{class:'scroll-cue',id:'scroll-cue',text:'More below ↓',hidden:true});
+    const actions=h('div',{class:'actions'},h('p',{class:'error',id:'error',role:'alert',hidden:true}),h('div',{class:'action-note'},note,cue),cont);
+    show(h('div',{class:'screen question-screen'},h('div',{class:'scrollarea',id:'question-scroll'},content),actions),'question');
   }
-
-  /* ---------- Navigation ---------- */
-  let advanceTimer = 0;
-  function scheduleNext() {
-    clearTimeout(advanceTimer);
-    advanceTimer = setTimeout(next, reduce ? 150 : 430);
-  }
-
   function next() {
-    clearTimeout(advanceTimer);
-    if (busy) { advanceTimer = setTimeout(next, 120); return; }
-    const vis = visible();
-    const i = vis.findIndex(q => q.id === state.qid);
-    if (i < vis.length - 1) { state.qid = vis[i + 1].id; go(renderQuestion, 1); }
+    if(sending) return;
+    const questions=visible(), i=questions.findIndex(q=>q.id===state.qid);
+    if(i<0 || !validAnswer(questions[i])) return;
+    if(i<questions.length-1) { state.qid=questions[i+1].id; question(); }
     else submit();
   }
-
-  function back() {
-    clearTimeout(advanceTimer);
-    if (busy || sending) return;
-    const vis = visible();
-    const i = vis.findIndex(q => q.id === state.qid);
-    if (i > 0) { state.qid = vis[i - 1].id; go(renderQuestion, -1); }
-    else { showTopbar(false); go(renderWelcome, -1); }
+  $('#back').addEventListener('click',()=>{
+    if(sending) return;
+    const questions=visible(), i=questions.findIndex(q=>q.id===state.qid);
+    if(i>0) {state.qid=questions[i-1].id; question();} else welcome();
+  });
+  function payload() {
+    const answers={};
+    for(const q of visible()) { const v=state.answers[q.id]; answers[q.col]=Array.isArray(v)?v.join(', '):String(v ?? '').trim(); }
+    return {id:state.responseId,role:state.role,submittedAt:new Date().toISOString(),answers};
   }
-  $('#back').addEventListener('click', back);
-
-  /* ---------- Sending ---------- */
-  function buildPayload() {
-    const answers = {};
-    for (const q of visible()) {
-      const v = state.answers[q.id];
-      answers[q.col] = Array.isArray(v) ? v.join(', ') : (v == null ? '' : String(v).trim());
-    }
-    return { id: state.responseId, role: state.role, submittedAt: new Date().toISOString(), answers };
-  }
-
-  let sending = false;
   async function submit() {
-    if (sending) return;
-    sending = true;
-    const btn = $('#primary'), err = $('#error');
-    const label = btn && $('.btn-label', btn);
-    if (err) err.hidden = true;
-    if (btn) {
-      btn.disabled = true;
-      btn.setAttribute('aria-busy', 'true');
-      btn.prepend(h('span', { class: 'spinner', 'aria-hidden': 'true' }));
-      label.textContent = 'Sending';
-    }
-    const payload = buildPayload();
+    if(sending) return;
+    sending=true;
+    const button=$('#primary'),error=$('#error'),field=$('.field');
+    button.disabled=true; $('#back').disabled=true;
+    if(field) field.disabled=true;
+    button.setAttribute('aria-busy','true');
+    $('.btn-label',button).textContent=PREVIEW?'Finishing preview…':'Sending answers…';
+    $('.btn-icon',button).replaceChildren(h('span',{class:'spinner','aria-hidden':'true'}));
+    error.hidden=true;
+    const controller=new AbortController();
+    const timeout=setTimeout(()=>controller.abort(),25000);
     try {
-      if (RESPONSES_URL) {
-        await fetch(RESPONSES_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify(payload)
-        });
-      } else {
-        await wait(700);
-        console.info('[Preview mode] This response was not saved:', payload);
+      if(!PREVIEW) {
+        
+        const response=await fetch(RESPONSES_URL,{method:'POST',mode:'cors',credentials:'omit',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload()),signal:controller.signal});
+        if(!response.ok) throw new Error('http');
+        const result=await response.json();
+        if(result.ok!==true) throw new Error('save');
+        state.receipt={role:state.role,id:state.responseId};
+        storage.set(DONE_KEY,JSON.stringify(state.receipt));
       }
-      store.set(DONE_KEY, '1');
-      showTopbar(false);
-      await go(renderDone, 1);
-    } catch (e) {
-      if (btn) {
-        btn.disabled = false;
-        btn.removeAttribute('aria-busy');
-        const spin = $('.spinner', btn);
-        if (spin) spin.remove();
-        label.textContent = 'Send answers';
-      }
-      if (err) {
-        err.textContent = "Your answers didn't send. Check your internet connection, then tap Send answers again.";
-        err.hidden = false;
-      }
+      done();
+    } catch(e) {
+      button.disabled=false;
+      button.removeAttribute('aria-busy');
+      $('.btn-label',button).textContent='Try sending again';
+      $('.btn-icon',button).innerHTML=ICON.arrow;
+      error.textContent=e.name==='AbortError' ? "We couldn't confirm the save in time. Keep this page open and try again; your answers are still here." : "We couldn't confirm your answers were saved. Check your connection and try again. If it keeps happening, let the survey organiser know.";
+      error.hidden=false;
     } finally {
-      sending = false;
+      clearTimeout(timeout); sending=false; $('#back').disabled=false; if(field) field.disabled=false;
     }
   }
-
-  /* ---------- Start ---------- */
-  if (!RESPONSES_URL) $('#chip').hidden = false;
-  $('#stage').replaceChildren(store.get(DONE_KEY) ? renderDone() : renderWelcome());
+  function done(focus=true) {
+    const share=primary('Share the survey',async()=>{
+      if(!/^https?:$/.test(location.protocol)) { $('.btn-label',share).textContent='Share your hosted website link'; return; }
+      const url=new URL(location.href); url.searchParams.delete('preview'); url.hash='';
+      const data={title:'Should campus go cashless?',text:'Take our 3-minute campus payments survey.',url:url.href};
+      try {
+        if(navigator.share) await navigator.share(data);
+        else { await navigator.clipboard.writeText(data.url); $('.btn-label',share).textContent='Link copied'; }
+      } catch(e) { if(e.name!=='AbortError') $('.btn-label',share).textContent='Copy the link from your address bar'; }
+    });
+    $('.btn-icon',share).innerHTML=ICON.share;
+    const again=h('button',{class:'btn btn-link',type:'button',text:PREVIEW?'Try another preview':'Start a new response'});
+    again.addEventListener('click',()=>{if(!PREVIEW) storage.del(DONE_KEY); state.role=null;state.qid=null;state.answers={};state.responseId=null;state.receipt=null;welcome();});
+    const content=h('div',{},h('div',{class:'orb',html:ICON.check}),h('h1',{id:'title',tabindex:'-1',text:PREVIEW?'That’s the preview.':'A little input. A big thank you.'}),h('p',{class:'lede',text:PREVIEW?'You’ve reached the end. This was a preview, so nothing was sent or saved.':'Your answers have been saved. You’re helping us understand what students and vendors need.'}),h('div',{class:'receipt'},h('strong',{text:PREVIEW?'Preview only':'Response received'}),PREVIEW?'Remove ?preview=1 from the link to collect real answers.':'Your perspective is now part of our class research.'));
+    show(h('div',{class:'screen done-screen'},h('div',{class:'scrollarea'},content),h('div',{class:'actions'},share,again)),'done',focus);
+  }
+  // Pointer sheen runs only on devices with a mouse, at most once per frame.
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduced.matches) {
+    const sheet=$('#sheet'); let frame=0,point;
+    sheet.addEventListener('pointermove',e=>{
+      point={x:e.clientX,y:e.clientY};
+      if(frame) return;
+      frame=requestAnimationFrame(()=>{const r=sheet.getBoundingClientRect();sheet.style.setProperty('--mx',`${(point.x-r.left)/r.width*100}%`);sheet.style.setProperty('--my',`${(point.y-r.top)/r.height*100}%`);frame=0;});
+    },{passive:true});
+    sheet.addEventListener('pointerleave',()=>{if(frame) cancelAnimationFrame(frame);frame=0;sheet.style.removeProperty('--mx');sheet.style.removeProperty('--my');});
+  }
+  if(PREVIEW) {$('#foot-status').textContent='Preview · answers aren’t saved';$('#foot-status').className='preview-chip';}
+  try {const receipt=JSON.parse(storage.get(DONE_KEY));if(receipt && ['student','vendor'].includes(receipt.role) && typeof receipt.id==='string') state.receipt=receipt;} catch(_) {}
+  if(state.receipt && !PREVIEW) {state.role=state.receipt.role;done(false);} else welcome(false);
 })();
 </script>
 </body>
 </html>
+-
